@@ -225,3 +225,9 @@ trusted-host = pypi.doubanio.com
 ALPN(Application Layer Protocol Negotiation) 
     ClientHello携带着ALPN的extension进行应用层协议的协商（详见rfc7301）
 ```
+
+## REFERENCE
+1. [自签名证书生成](https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04)
+2. [letsencrypt生成证书](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04)
+3. [ngix with h2 support](https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-with-http-2-support-on-ubuntu-16-04)
+4. [install joomla on centos 7](https://www.unixmen.com/install-joomla-cms-centos-7/)
