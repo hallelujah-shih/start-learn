@@ -151,6 +151,16 @@ ngx.socket.stream 是ngx.socket.tcp的别名
 ngx.socket.connect(host, port) | ngx.socket.connect("unix:/path/unix-domain.socket") 是sock = ngx.socket.tcp()  sock:connect(...)的简化形式
 ```
 
+### balancer相关
+```
+[详细描述地址](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/balancer.md)
+[经典讨论](https://groups.google.com/forum/#!topic/openresty-en/6b9HgG_0xas)
+balancer.set_current_peer(host, port) 设置当前查询的后端的IP地址和端口（host需要在access_by_lua*等阶段将域名解析出来）
+balancer.set_more_tries(count) 
+balancer.get_last_failure() 获取失败细节
+balancer.set_timeouts(connect_timeout, send_timeout, read_timeout)
+```
+
 ### thread相关
 ```
 ngx.thread.spawn
