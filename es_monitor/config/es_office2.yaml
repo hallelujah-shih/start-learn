@@ -1,0 +1,149 @@
+# ======================== Elasticsearch Configuration =========================
+#
+# NOTE: Elasticsearch comes with reasonable defaults for most settings.
+#       Before you set out to tweak and tune the configuration, make sure you
+#       understand what are you trying to accomplish and the consequences.
+#
+# The primary way of configuring a node is via this file. This template lists
+# the most important settings you may want to configure for a production cluster.
+#
+# Please see the documentation for further information on configuration options:
+# <http://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration.html>
+#
+# ---------------------------------- Cluster -----------------------------------
+#
+# Use a descriptive name for your cluster:
+#
+cluster.name: chengdu-test-es
+#
+# ------------------------------------ Node ------------------------------------
+#
+# Use a descriptive name for the node:
+#
+node.name: test-cdn-chengdu-office2
+#
+# Add custom attributes to the node:
+#
+# node.rack: r1
+#
+# ----------------------------------- Paths ------------------------------------
+#
+# Path to directory where to store the data (separate multiple locations by comma):
+# 这个路径可以设置多于一个，往往在磁盘用光了很好使
+# path.data: /home/es_data/index,/shit_dir
+path.data: /home/es_data/index
+#
+# Path to log files:
+#
+path.logs: /home/es_data/logs
+
+path.plugins: /home/es_data/plugins
+
+path.scripts: /home/es_data/scripts
+# ----------------------------------- Memory -----------------------------------
+#
+# Lock the memory on startup:
+#
+bootstrap.mlockall: true
+#
+# Make sure that the `ES_HEAP_SIZE` environment variable is set to about half the memory
+# available on the system and that the owner of the process is allowed to use this limit.
+#
+# Elasticsearch performs poorly when the system is swapping the memory.
+#
+# ---------------------------------- Network -----------------------------------
+#
+# Set the bind address to a specific IP (IPv4 or IPv6):
+#
+network.host: 0.0.0.0
+#
+# Set a custom port for HTTP:
+#
+http.port: 9200
+#
+# For more information, see the documentation at:
+# <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-network.html>
+#
+# --------------------------------- Discovery ----------------------------------
+#
+# Pass an initial list of hosts to perform discovery when new node is started:
+# The default list of hosts is ["127.0.0.1", "[::1]"]
+#
+discovery.zen.ping.multicast.enabled: false
+
+discovery.zen.ping.unicast.hosts: ["test-cdn-chengdu-office5", "chengdu-spark-00"]
+
+index.routing.allocation.disable_allocation: false
+
+cluster.routing.allocation.enable : all
+#
+# Prevent the "split brain" by configuring the majority of nodes (total number of nodes / 2 + 1):
+#
+# discovery.zen.minimum_master_nodes: 3
+#
+# For more information, see the documentation at:
+# <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-discovery.html>
+#
+# ---------------------------------- Gateway -----------------------------------
+#
+# Block initial recovery after a full cluster restart until N nodes are started:
+#
+# gateway.recover_after_nodes: 3
+#
+# For more information, see the documentation at:
+# <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway.html>
+#
+# ---------------------------------- Various -----------------------------------
+#
+# Disable starting multiple nodes on a single system:
+#
+# node.max_local_storage_nodes: 1
+#
+# Require explicit names when deleting indices:
+#
+# 过小的fielddata缓存常常是OutOfMemoryError异常的根源，具体数值需要在实际系统中调整
+# 即使设置了这个，也可能得到OutOfMemoryError异常，可能是单个查询加载fielddata缓存大于分配的空间
+indices.fielddata.cache.size: 30%
+
+# "过电保护"，直接抛出查询异常，而不是OutOfMemoryError
+indices.breaker.fielddata.limit: 60%
+
+# indices.fielddata.cache.expire 这个参数能不动就别动
+#
+# query cache默认是jvm heap的1%, 调优的时候可以根据实际情况调整
+indices.cache.query.size: 2%
+
+# OutOfMemoryError异常分析
+# 1. Shard failures ->查询返回结果中_shards.failed判断
+# 2. Search query failures
+# 3. Indexing failures
+# 解决OutOfMemoryError
+# 1. 限制fielddata.cache.size
+# 2. 允许"融断机制"工作,breaker.fielddata.limit
+# 3. 调整批量插入数据(bulk操作)的大小和频率
+# 4. 降低总的分片数量(total shards)
+# 5. 确保ES_HEAP_SIZE正确的设置了
+# 6. 确保机器有足够使用的物理内存
+
+# query slowlog
+index.search.slowlog.threshold.query.warn: 8s
+index.search.slowlog.threshold.query.info: 4s
+index.search.slowlog.threshold.query.debug: 2s
+index.search.slowlog.threshold.query.trace: 500ms
+
+# fetch slowlog
+index.search.slowlog.threshold.fetch.warn: 1s
+index.search.slowlog.threshold.fetch.info: 750ms
+index.search.slowlog.threshold.fetch.debug: 500ms
+index.search.slowlog.threshold.fetch.trace: 250ms
+
+# index slowlog
+index.indexing.slowlog.threshold.index.warn: 8s
+index.indexing.slowlog.threshold.index.info: 4s
+index.indexing.slowlog.threshold.index.debug: 2s
+index.indexing.slowlog.threshold.index.trace: 500ms
+
+index.indexing.slowlog.level: info
+index.indexing.slowlog.source: 5000
+#
+# action.destructive_requires_name: true

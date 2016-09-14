@@ -1,0 +1,9 @@
+# 此配置文件还有一些配置没有配置，主要目的是为了将marvel产生的数据和主ES集群分开，怕影响性能，测试可以不用分开
+#
+index.routing.allocation.disable_allocation: false
+cluster.routing.allocation.enable : all
+marvel.agent.enabled: false
+cluster.name: my_monitoring_cluster
+node.name: elasticsearch-marvel-01
+bootstrap.mlockall: true
+discovery.zen.ping.multicast.enabled: false

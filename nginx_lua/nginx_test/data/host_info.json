@@ -1,0 +1,1 @@
+{"test.start-learn.win": {"origin_server": [{"active": true, "host": "10.8.255.70", "scheme": "http", "port": 80, "weight": 50}, {"active": true, "host": "10.8.255.70", "scheme": "http", "port": 8080, "weight": 30}, {"active": true, "host": "10.8.255.70", "scheme": "http", "port": 8000, "weight": 20}]}}
