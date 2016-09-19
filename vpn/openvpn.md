@@ -96,3 +96,7 @@ net.ipv4.ip_forward = 1
 
 /etc/systemd/system/multi-user.target.wants/openvpn@server.service中详细记录了openvpn的启动，可以在前台启动
 ```
+
+## reference
+[ubuntu install openvpn](https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-16-04)
+[centos install openvpn](https://www.digitalocean.com/community/tutorials/how-to-setup-and-configure-an-openvpn-server-on-centos-7)
