@@ -35,3 +35,15 @@ brief: a fast, simple c++ and lua binding
 github: https://github.com/actor-framework/actor-framework
 brief: Actor Model in C++
 ```
+
+## [wrk](https://github.com/wg/wrk)
+```
+github: https://github.com/wg/wrk
+brief: Modern HTTP benchmarking tool
+```
+
+## [awesome_perf_c++](https://github.com/fenbf/AwesomePerfCpp)
+```
+github: https://github.com/fenbf/AwesomePerfCpp
+brief: A curated list of awesome C/C++ performance optimization resources
+```
