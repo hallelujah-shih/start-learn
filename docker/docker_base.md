@@ -19,5 +19,49 @@ RUN echo -e '[global]\nindex-url = http://mirrors.aliyun.com/pypi/simple/\ntrust
 > echo "core.%e.%p.%t" > /proc/sys/kernel/core_pattern
 ```
 
+## 数据管理
+```
+容器中管理数据主要由两种方式
+1. 数据卷（Data Volumes）
+2. 数据卷容器（Data Volume containers）
+```
+
+### 数据卷
+```
+特性：
+1. 可以在容器之间共享和重用
+2. 对数据卷的修改会马上生效
+3. 对数据卷的更新不会影响镜像
+4. 数据卷不会因为容器的删除而受到影响
+
+命令：
+-v
+
+常用方法：
+指定挂载本地主机的目录到容器中
+> docker run -d -P --name web -v /src/webapp:/opt/webapp ubuntu:trusty /bin/bash
+表示挂载主机上的/src/webapp目录到容器中的/opt/webapp目录，开发和测试十分方便
+* 本地路径必须为绝对路径
+Docker 挂载数据卷的默认权限是读写，用户也可以通过 :ro 指定为只读。
+> docker run -d -P --name web -v /src/webapp:/opt/webapp:ro ubuntu:trusty /bin/bash
+挂载为只读了
+
+查看数据卷信息：
+> docker inspect web
+```
+
+### 数据卷容器
+```
+如果你有一些持续更新的数据需要在容器间共享，最好创建数据卷容器
+数据卷容器是正常的容器，专门用来提供数据卷，供其他容器挂载的
+
+创建一个名为dbdata的数据卷容器
+> sudo docker run -d -v /dbdata --name dbdata training/postgres echo Data-only container for postgres 
+其他容器中使用--volumes-from来挂载dbdata容器中的数据卷
+> sudo docker run -d --volumes-from dbdata --name db1 training/postgres
+> sudo docker run -d --volumes-from dbdata --name db2 training/postgres
+```
+
 ## reference
 [docker core设置](http://ephrain.pixnet.net/blog/post/61630024-%5Bdocker%5D-%E5%9C%A8-container-%E8%A3%A1%E8%A8%AD%E5%AE%9A-core-dump-%E7%9A%84%E6%AA%94%E6%A1%88%E5%90%8D%E7%A8%B1)
+[docker practice](https://www.gitbook.com/book/yeasy/docker_practice/details)

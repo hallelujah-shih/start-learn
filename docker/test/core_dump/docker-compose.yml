@@ -1,0 +1,9 @@
+core_dump:
+    build: .
+    volumes:
+        - .:/test
+    working_dir: /test 
+    ulimits:
+        core: -1
+    privileged: true
+    command: /bin/bash
