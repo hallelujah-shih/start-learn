@@ -1,6 +1,7 @@
 local balancer = require "ngx.balancer"
 
 local alist = ngx.ctx.access_list
+ngx.var.srcip = #alist
 for i=1, #alist, 1 do
     local data = table.remove(alist, 1)
     if #data == 2 and type(data) == 'table' then
