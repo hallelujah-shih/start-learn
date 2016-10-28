@@ -47,3 +47,9 @@ brief: Modern HTTP benchmarking tool
 github: https://github.com/fenbf/AwesomePerfCpp
 brief: A curated list of awesome C/C++ performance optimization resources
 ```
+
+## [botan](https://github.com/randombit/botan)
+```
+github: https://github.com/randombit/botan
+brief: Crypto and TLS for C++11
+```
