@@ -1,0 +1,9 @@
+phase_test:
+    image: openresty
+    volumes:
+        - ./config/:/etc/nginx/
+        - ./log/:/var/log/nginx/
+    ports:
+        - "5556:80"
+    command: nginx -g "daemon off;"
+
