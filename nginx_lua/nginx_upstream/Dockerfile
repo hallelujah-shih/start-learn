@@ -40,7 +40,7 @@ ARG RESTY_CONFIG_OPTIONS="\
     "
 
 # These are not intended to be user-specified
-ARG _RESTY_CONFIG_DEPS="--with-openssl=/tmp/openssl-${RESTY_OPENSSL_VERSION} --with-pcre=/tmp/pcre-${RESTY_PCRE_VERSION}"
+ARG _RESTY_CONFIG_DEPS="--with-openssl=/usr/src/openssl-${RESTY_OPENSSL_VERSION} --with-pcre=/usr/src/pcre-${RESTY_PCRE_VERSION}"
 
 
 # 1) Install apt dependencies
@@ -67,25 +67,34 @@ RUN \
         make \
         perl \
         unzip \
-        zlib1g-dev
-RUN cd /tmp \
+        zlib1g-dev \
+        gdb tmux
+RUN cd /usr/src \
     && curl -fSL https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
-    && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
+    && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz 
+
+RUN cd /usr/src \
     && curl -fSL https://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-${RESTY_PCRE_VERSION}.tar.gz -o pcre-${RESTY_PCRE_VERSION}.tar.gz \
-    && tar xzf pcre-${RESTY_PCRE_VERSION}.tar.gz \
+    && tar xzf pcre-${RESTY_PCRE_VERSION}.tar.gz 
+
+RUN cd /usr/src \
     && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
-    && tar xzf openresty-${RESTY_VERSION}.tar.gz \
-    && cd /tmp/openresty-${RESTY_VERSION} \
+    && tar xzf openresty-${RESTY_VERSION}.tar.gz 
+
+RUN cd /usr/src \
+    && cd /usr/src/openresty-${RESTY_VERSION} \
     && ./configure -j${RESTY_J} ${_RESTY_CONFIG_DEPS} ${RESTY_CONFIG_OPTIONS} --prefix=/opt/nginx --conf-path=/etc/nginx/nginx.conf \
-    --pid-path=/run/nginx.pid --sbin-path=/usr/sbin/nginx --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --with-debug \
+    --pid-path=/run/nginx.pid --sbin-path=/usr/sbin/nginx --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --with-debug --with-cc-opt="-O0 -g" \
     && make -j${RESTY_J} \
     && make -j${RESTY_J} install \
-    && cd /tmp \
+    && cd /usr/src \
     && rm -rf \
         openssl-${RESTY_OPENSSL_VERSION} \
         openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
-        openresty-${RESTY_VERSION}.tar.gz openresty-${RESTY_VERSION} \
-        pcre-${RESTY_PCRE_VERSION}.tar.gz pcre-${RESTY_PCRE_VERSION} \
+        openresty-${RESTY_VERSION}.tar.gz \
+        pcre-${RESTY_PCRE_VERSION}.tar.gz pcre-${RESTY_PCRE_VERSION} 
+
+RUN cd /usr/src \
     && curl -fSL http://luarocks.org/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && cd luarocks-${RESTY_LUAROCKS_VERSION} \
@@ -96,6 +105,6 @@ RUN cd /tmp \
         --with-lua-include=/opt/nginx/luajit/include/luajit-2.1 \
     && make build \
     && make install \
-    && cd /tmp \
+    && cd /usr/src \
     && rm -rf luarocks-${RESTY_LUAROCKS_VERSION} luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y

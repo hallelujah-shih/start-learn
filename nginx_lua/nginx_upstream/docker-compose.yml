@@ -1,5 +1,6 @@
 upstream_test:
-    image: openresty
+    build: .
+    privileged: true
     volumes:
         - ./config/:/etc/nginx/
         - ./log/:/var/log/nginx/
