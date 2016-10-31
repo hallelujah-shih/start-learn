@@ -52,6 +52,7 @@ ARG _RESTY_CONFIG_DEPS="--with-openssl=/usr/src/openssl-${RESTY_OPENSSL_VERSION}
 
 RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && apt-get update
 
+
 RUN \
     DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -68,7 +69,8 @@ RUN \
         perl \
         unzip \
         zlib1g-dev \
-        gdb tmux
+        gdb tmux python-pip
+
 RUN cd /usr/src \
     && curl -fSL https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz 
@@ -108,3 +110,7 @@ RUN cd /usr/src \
     && cd /usr/src \
     && rm -rf luarocks-${RESTY_LUAROCKS_VERSION} luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y
+
+RUN mkdir -p /root/.pip/ && echo "[global]\nindex-url = http://mirrors.aliyun.com/pypi/simple/\ntrusted = mirrors.aliyun.com" > /root/.pip/pip.conf
+
+RUN pip install ipython
