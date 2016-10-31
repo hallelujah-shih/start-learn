@@ -17,3 +17,17 @@ gdb -p pid
 
 test_ser.py是为了测试实现的一个upstream服务器(为了产生rst数据包的报文)
 ```
+
+## 注意
+```
+在使用balancer的时候一定要注意控制peer的信息，特别是set_more_tries不设置的时候nginx中u->peer.tries == 0，但是单set_current_peer时，得到的是未关闭的socket连接时(keep-alive)，产生错误之后依然会重入balancer。
+
+
+示例代码：
+s = requests.Session()
+s.get("http://localhost")
+s.get("http://localhost")
+s.get("http://localhost")
+
+s.get("http://localhost") 注意加断点看
+```
