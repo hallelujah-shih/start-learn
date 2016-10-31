@@ -62,6 +62,31 @@ Docker 挂载数据卷的默认权限是读写，用户也可以通过 :ro 指�
 > sudo docker run -d --volumes-from dbdata --name db2 training/postgres
 ```
 
+## 镜像/容器的导入和导出
+### 导出(save, export)
+```
+区别:
+    save: 用于持久化镜像（不是容器），所以需要docker images查询镜像名来导出
+        docker save busybox-1 > busybox-1.tar
+
+    export: 用于持久化容器（不是镜像），所以需要docker ps -a得到容器ID
+        docker export <container id> > export.tar
+```
+
+### 导入(load, import)
+```
+    load:
+        docker load < busybox-1.tar
+
+    import:
+        cat export.tar | docker import - busybox-1-export:latest
+```
+
+### 区别
+```
+使用export-import方式处理的镜像会丢失所有历史
+```
+
 ## reference
 [docker core设置](http://ephrain.pixnet.net/blog/post/61630024-%5Bdocker%5D-%E5%9C%A8-container-%E8%A3%A1%E8%A8%AD%E5%AE%9A-core-dump-%E7%9A%84%E6%AA%94%E6%A1%88%E5%90%8D%E7%A8%B1)
 [docker practice](https://www.gitbook.com/book/yeasy/docker_practice/details)
