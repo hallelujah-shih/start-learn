@@ -69,7 +69,7 @@ RUN \
         perl \
         unzip \
         zlib1g-dev \
-        gdb tmux python-pip
+        gdb tmux python-dev python-pip vim
 
 RUN cd /usr/src \
     && curl -fSL https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
@@ -111,6 +111,6 @@ RUN cd /usr/src \
     && rm -rf luarocks-${RESTY_LUAROCKS_VERSION} luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y
 
-RUN mkdir -p /root/.pip/ && echo "[global]\nindex-url = http://mirrors.aliyun.com/pypi/simple/\ntrusted = mirrors.aliyun.com" > /root/.pip/pip.conf
-
-RUN pip install ipython
+RUN mkdir -p /root/.pip/ && echo "[global]\nindex-url = http://mirrors.aliyun.com/pypi/simple/\ntrusted-host = mirrors.aliyun.com" > /root/.pip/pip.conf
+RUN pip install -U pip setuptools 
+RUN pip install ipython 
