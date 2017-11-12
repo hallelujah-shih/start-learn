@@ -47,6 +47,9 @@ sudo update-alternatives --config editor
 安装vim-plug插件
 > curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+若用于vim执行下面的命令
+> curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+>     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
 ### 个人插件
