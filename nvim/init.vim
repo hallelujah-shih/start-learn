@@ -56,6 +56,9 @@ Plug 'vim-scripts/c.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'tell-k/vim-autopep8'
 
+" C++高亮
+Plug 'octol/vim-cpp-enhanced-highlight'
+
 call plug#end()
 
 let g:UltiSnipsUsePythonVersion = 2
