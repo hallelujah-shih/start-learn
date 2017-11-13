@@ -54,6 +54,7 @@ sudo update-alternatives --config editor
 
 ### 个人插件
 ```vim
+" 路径 nvim(~/.config/nvim/init.vim) vim(~/.vimrc)
 set encoding=utf-8
 set nu
 set tabstop=4
