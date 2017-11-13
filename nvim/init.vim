@@ -9,21 +9,22 @@ set si
 set hls 
 set showmatch
 set smarttab
-autocmd FileType go set expandtab
 
 filetype plugin indent on
+autocmd FileType go set expandtab
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - 我nvim也是用的vim的目录，便于vim和nvim共用
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'junegunn/vim-easy-align'
 
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
 Plug 'SirVer/ultisnips' 
-Plug 'honza/vim-snippets'
+" 会和YouCompleteMe冲突
+" Plug 'honza/vim-snippets'
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
@@ -52,18 +53,25 @@ Plug 'plasticboy/vim-markdown'
 Plug 'vim-scripts/a.vim'
 Plug 'vim-scripts/c.vim'
 
-" Unmanaged plugin (manually installed and updated)
-Plug '~/my-prototype-plugin'
+Plug 'Yggdroot/indentLine'
+Plug 'tell-k/vim-autopep8'
 
 call plug#end()
 
-
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsUsePythonVersion = 2
+" 
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsJumpForwardTrigger="<C-b>"
+let g:UltiSnipsJumpBackwardTrigger="<C-z>"
+let g:UltiSnipsEditSplit="vertical"
 
 map <C-n> :NERDTreeToggle<CR>
-nmap <C-m> :TagbarToggle <cr>
+map <C-m> :TagbarToggle <CR>
 let g:tagbar_width=30
 
 " https://github.com/Valloric/ycmd/blob/master/cpp/ycm/.ycm_extra_conf.py 放入此插件的目录中，加上引用
-let g:ycm_global_ycm_extra_conf='~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/.local/share/nvim/plugged/YouCompleteMe/.ycm_extra_conf.py'
+let g:ycm_use_ultisnips_completer = 1
+
+let g:indentLine_setColors = 0
+let g:indentLine_enabled = 1
