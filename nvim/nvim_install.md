@@ -54,7 +54,7 @@ sudo update-alternatives --config editor
 3. 编译YouCompleteMe可能失败（32位只有失败）
  a. 从源中安装clang，apt-cache search clang
  b. apt-get install clang-3.9
- c. 手动编译，使用系统的clang
+ c. 手动编译，使用系统的clang(swap默认的100M会导致资源不足)
    > ./install.py --clang-completer --system-libclang --gocode-completer 
 4. 其他参见其他章节
 ```
