@@ -39,7 +39,10 @@ Plug 'majutsushi/tagbar'
 " 编程语言相关
 "" golang
 Plug 'fatih/vim-go', { 'tag': '*' }
-Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+"" nvim
+Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.local/share/nvim/plugged/gocode/nvim/symlink.sh' }
+" vim 
+" Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 
 "" C/C++
 Plug 'vim-scripts/a.vim'
