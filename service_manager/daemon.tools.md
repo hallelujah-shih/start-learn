@@ -64,6 +64,25 @@ exec setuidgid nobody /usr/bin/polipo -c /etc/polipo.conf
 > chmod +x run
 ```
 
+## 安全相关
+```
+若启动服务失败，可以查看系统相关日志(journalctl)，可以查看audit的日志是否有启动失败相关信息。
+若均看到了此消息， setenforce 0之后若看到服务启动成功，在audit中也看到了相关信息，说明和安全相关
+这里主要说Selinux
+```
+### Selinux
+``` 
+1. 安装管理相关工具
+> dnf -y install policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
+
+2. 检查审计日志
+> /var/log/audit/audit.log
+
+3. 最好别这么操作(或者了解下)
+> grep scanboot /var/log/audit/audit.log | audit2allow -M daemontools
+> semodule -i daemontools.pp
+```
+
 ## reference 
 [daemontools](https://cr.yp.to/daemontools.html)
 [centos install daemontools](http://marcelog.github.io/articles/install_daemon_tools_centos_amazon_linux.html)
