@@ -14,6 +14,12 @@ nmcli device status
 nmcli con edit
 ```
 ## 实例
+### 通过nmcli增加dns-search
+```bash
+" 直接命令行增加dns-search,逗号空格均可以
+$ nmcli con modify ens33 ipv4.dns-search "intra.jiasule.com intra.knownsec.com"
+$ systemctl restart NetworkManager
+```
 ### 增加一个静态IP到允许DHCP的NetworkManager链接上
 ```bash
 " 这里假设网卡名字为eth0
@@ -31,10 +37,10 @@ nmcli con edit eth0
 cat /etc/sysconfig/network-scripts/ifcfg-eth0
 ```
 ### 增加一个以太配置
-```
+``` bash
 > nmcli con con-name eth0 ifname eth0 type ethernet ip4 192.168.100.100/24 gw4 192.168.100.2
 > nmcli con edit eth0
-" 增加DNS search的域（我还未验证）
+" 增加DNS search的域
 > set ipv4.dns-search intra.jiasule.com,intra.knownsec.com
 > save
 " con-name 后的名字将在/etc/sysconfig/network-scripts/ifcfg-${con-name}
