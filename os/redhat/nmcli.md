@@ -30,3 +30,12 @@ nmcli con edit eth0
 
 cat /etc/sysconfig/network-scripts/ifcfg-eth0
 ```
+### 增加一个以太配置
+```
+> nmcli con con-name eth0 ifname eth0 type ethernet ip4 192.168.100.100/24 gw4 192.168.100.2
+> nmcli con edit eth0
+" 增加DNS search的域（我还未验证）
+> set ipv4.dns-search intra.jiasule.com,intra.knownsec.com
+> save
+" con-name 后的名字将在/etc/sysconfig/network-scripts/ifcfg-${con-name}
+```
