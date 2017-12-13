@@ -87,6 +87,11 @@ sudo update-alternatives --config editor
 > git submodule update --init --recursive
 编译，我这儿只要C家族的和Go语言
 > ./install.py --clang-completer --gocode-completer
+" 若编译后出现ycm_core.so找不到libtinfo.so，可以使用
+> LLVM_OPTS="$LLVM_OPTS --disable-terminfo"
+“ 不过我系统上并为成功，应该是编译使用clang的时候并未应用此选项的原因
+” 可以使用系统的clang做编译，ycm_core.so对libtinfo的引用将会正确
+> ./install.py --system-libclang --clang-completer --gocode-completer
 ```
 #### vim-go说明 
 ```
