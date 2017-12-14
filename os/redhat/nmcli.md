@@ -17,7 +17,7 @@ nmcli con edit
 ### 通过nmcli增加dns-search
 ```bash
 " 直接命令行增加dns-search,逗号空格均可以
-$ nmcli con modify ens33 ipv4.dns-search "intra.jiasule.com intra.knownsec.com"
+$ nmcli con modify ens33 ipv4.dns-search intra.jiasule.com,intra.knownsec.com
 $ systemctl restart NetworkManager
 ```
 ### 增加一个静态IP到允许DHCP的NetworkManager链接上
