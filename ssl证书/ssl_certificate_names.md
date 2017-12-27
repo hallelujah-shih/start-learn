@@ -63,3 +63,13 @@ CN表示SSL证书所覆盖的主机名。尝试将证书用于与名称不匹配
 The X.509 specification allows to define extensions to be attached to a Certificate Signing Request (CSR) and the final server certificate.
 使用SAN扩展可以在证书的subjectAltName字段中制定多个主机名，这些名称中每个都将被认为受SSL证书保护。
 ```
+### 名词解析
+#### Certificate Signing Request (CSR)
+```
+证书签名请求（CSR或证书请求），是发送给证书颁发机构以便申请证书的加密文本块。
+CSR中包含的信息将包含在您的证书中，如CN、所有者详细信息。还包含将要嵌入到证书中的公钥。
+```
+#### Certificate Authority(CA)
+```
+证书颁发机构
+```
