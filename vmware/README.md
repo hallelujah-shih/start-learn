@@ -11,6 +11,6 @@ vmware版本:14
 > mv hostif.c vmmon-only/linux/hostif.c
 > rm vmmon.tar
 > tar cf vmmon.tar vmmon-only
-> rm vmmon-only
+> rm vmmon-only -rf
 > vmware-modconfig –console –install-all
 ```
