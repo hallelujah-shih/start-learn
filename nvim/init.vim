@@ -66,6 +66,10 @@ Plug 'mfulz/cscope.nvim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
+" neomake linting
+Plug 'pearofducks/ansible-vim'
+Plug 'neomake/neomake'
+
 call plug#end()
 
 " 代码片段生成，注意冲突
