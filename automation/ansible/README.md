@@ -7,6 +7,7 @@
 ```bash
 # Fedora 27
 sudo dnf -y install ansible
+
 ```
 ## 杂项说明
 ```
@@ -25,3 +26,8 @@ SSH key输入密码的问题（使用ssh-agent + ssh-add解决）
 $ echo 'eval $(ssh-agent)' >> ~/.bash_profile
 $ ssh-add my_private_key_path
 ```
+
+## 引用
+[how-to-deploy-ansible-accessible-explanation](https://blog.rackspace.com/how-to-deploy-ansible-accessible-explanation)
+[playbooks_intro](http://ansible-tran.readthedocs.io/en/latest/docs/playbooks_intro.html)
+[ansible docs](http://www.361way.com/ansible-playbook-example/4441.html)

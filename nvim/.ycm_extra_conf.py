@@ -80,6 +80,13 @@ get_python_inc(),
 '/usr/include',
 '-isystem',
 '/usr/local/include',
+
+'-isystem',
+'./src',
+'-isystem',
+'./src/include',
+'-isystem',
+'./include',
 ]
 
 # Clang automatically sets the '-std=' flag to 'c++14' for MSVC 2015 or later,
