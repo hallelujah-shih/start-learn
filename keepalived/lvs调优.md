@@ -48,6 +48,28 @@ net.core.netdev_max_backlog = 500000（每个网络接口接收数据包的速�
 ```
 主要思路是将中断分别绑定到CPU上，并关闭系统自动中断平衡服务
 目的是为了优化大量网络数据包中断处理可能导致的网卡瓶颈。
+
+引用https://my.oschina.net/kisops/blog/156561的自动化配置脚本
+<bash>
+#!/bin/bash  
+# Enable RPS (Receive Packet Steering)  
+
+rfc=4096  
+cc=$(grep -c processor /proc/cpuinfo)  
+rsfe=$(echo $cc*$rfc | bc)  
+sysctl -w net.core.rps_sock_flow_entries=$rsfe  
+for fileRps in $(ls /sys/class/net/eth*/queues/rx-*/rps_cpus)  
+do
+    echo fff > $fileRps  
+done
+
+for fileRfc in $(ls /sys/class/net/eth*/queues/rx-*/rps_flow_cnt)  
+do
+    echo $rfc > $fileRfc  
+done
+
+tail /sys/class/net/eth*/queues/rx-*/{rps_cpus,rps_flow_cnt}
+</bash>
 ```
 
 ## 参考
