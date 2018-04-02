@@ -84,6 +84,9 @@ Plug 'neomake/neomake'
 " systemtap
 Plug 'nickhutchinson/vim-systemtap'
 
+" 系统配色solarized
+Plug 'https://github.com/altercation/vim-colors-solarized'
+
 call plug#end()
 
 " 代码片段生成，注意冲突
@@ -133,3 +136,12 @@ if has("cscope")
 	nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 	nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 endif
+
+" solarized设置
+syntax enable
+if has('gui_running')
+    set background=dark
+else
+    set background=light
+endif
+colorscheme solarized
