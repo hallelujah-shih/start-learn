@@ -138,11 +138,11 @@ if has("cscope")
 endif
 
 " solarized设置
-syntax enable
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
-colorscheme solarized
-let g:solarized_termcolors=256
+"syntax enable
+"if has('gui_running')
+"    set background=light
+"else
+"    set background=dark
+"endif
+"colorscheme solarized
+"let g:solarized_termcolors=256
