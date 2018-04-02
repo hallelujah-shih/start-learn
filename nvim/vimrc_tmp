@@ -6,6 +6,14 @@ set nu
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+set expandtab
+
+" 显示tab
+set list
+set listchars=tab:>-,trail:-
+
+" 高亮，nvim好像无效
+set hlsearch
 
 set ci
 set si
@@ -43,9 +51,9 @@ Plug 'majutsushi/tagbar'
 "" golang
 Plug 'fatih/vim-go', { 'tag': '*' }
 "" nvim
-Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/nvim/symlink.sh' }
+"Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.local/share/nvim/plugged/gocode/nvim/symlink.sh' }
 " vim 
-" Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+ Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 
 "" C/C++
 Plug 'vim-scripts/a.vim'
@@ -76,10 +84,13 @@ Plug 'neomake/neomake'
 " systemtap
 Plug 'nickhutchinson/vim-systemtap'
 
+" 系统配色solarized
+Plug 'https://github.com/altercation/vim-colors-solarized'
+
 call plug#end()
 
 " 代码片段生成，注意冲突
-let g:UltiSnipsUsePythonVersion = 3
+let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsExpandTrigger="<c-k>"
 let g:UltiSnipsListSnippets="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-i>"
@@ -106,29 +117,32 @@ let g:cscope_update_on_start = 1
 " http://cscope.sourceforge.net/cscope_maps.vim
 if has("cscope")
 	" use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
-	set cscopetag                                                                                                                           
-	set csto=0                                                                                                                              
-	if filereadable("cscope.out")                                                                                                           
-		cs add cscope.out                                                                                                                   
-	elseif $CSCOPE_DB != ""                                                                                                                 
-		cs add $CSCOPE_DB                                                                                                                   
-	endif                                                                                                                                   
+	set cscopetag
+	set csto=0
+	if filereadable("cscope.out")
+		cs add cscope.out
+	elseif $CSCOPE_DB != ""
+		cs add $CSCOPE_DB
+	endif
 
-	set cscopeverbose                                                                                                                       
+	set cscopeverbose
 
-	nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>                                                                                  
-	nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>                                                                                  
-	nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>                                                                                  
-	nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>                                                                                  
-	nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>                                                                                  
-	nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>                                                                                  
-	nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>                                                                                
-	nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>                                                                                  
-endif                  
+	nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+	nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+	nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+	nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+	nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+	nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+	nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+	nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+endif
 
-" 显示tab
-set list
-set listchars=tab:>-
-
-" 高亮，nvim好像无效
-set hlsearch 
+" solarized设置
+"syntax enable
+"if has('gui_running')
+"    set background=light
+"else
+"    set background=dark
+"endif
+"colorscheme solarized
+"let g:solarized_termcolors=256
