@@ -6,6 +6,14 @@ set nu
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+set expandtab
+
+" 显示tab
+set list
+set listchars=tab:>-,trail:-
+
+" 高亮，nvim好像无效
+set hlsearch
 
 set ci
 set si
@@ -125,10 +133,3 @@ if has("cscope")
 	nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 	nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 endif
-
-" 显示tab
-set list
-set listchars=tab:>-,trail:-
-
-" 高亮，nvim好像无效
-set hlsearch
