@@ -90,7 +90,11 @@ Plug 'https://github.com/altercation/vim-colors-solarized'
 call plug#end()
 
 " 代码片段生成，注意冲突
-let g:UltiSnipsUsePythonVersion = 2
+if has("python3")
+    let g:UltiSnipsUsePythonVersion = 3
+else
+    let g:UltiSnipsUsePythonVersion = 2
+endif
 let g:UltiSnipsExpandTrigger="<c-k>"
 let g:UltiSnipsListSnippets="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-i>"
