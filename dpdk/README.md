@@ -6,6 +6,14 @@
 ```
 一些基本概念的说明和解释
 核心组件架构参见(https://dpdk.org/doc/guides/prog_guide/overview.html)
+
+dpdk程序的基本结构
+1. eal的初始化
+2. 进行参数解析(dpdk的和应用层)
+3. 分配报文的mempool
+4. 初始化以及启动接口
+5. 启动各个核上的线程
+6. 等待线程退出，进行最后处理
 ```
 
 ### EAL
