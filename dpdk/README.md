@@ -2,6 +2,87 @@
 ```
 ```
 
+## 编程基础
+```
+一些基本概念的说明和解释
+核心组件架构参见(https://dpdk.org/doc/guides/prog_guide/overview.html)
+```
+
+### EAL
+```
+EAL: Environment Abstraction Layer，环境抽象层，是DPDK背后的主要概念
+EAL是一组编程工具，使得DPDK能在特定的硬件环境和操作系统下工作，在DPDK库中，库和驱动是作为EAL的一部分放在rte_eal目录中，还包含了各种处理器架构的一组头文件。
+最常见的头文件包括:
+    rte_lcore.h 管理处理器和套接字
+    rte_memory.h 管理内存
+    rte_pci.h 提供了访问PCI地址空间的接口
+    rte_debug.h ...
+    rte_interrupts.h 处理中断
+```
+
+### 队列管理
+```
+此功能由rte_ring提供
+网卡接受的数据包会被发送到环形缓冲区，它充当了接收队列。在DPDK中收到的数据包也会发送到rte_ring库上实现的队列中。
+rte_ring是基于FreeBSD的ring buffer。
+该队列是建立在FIFO原理上的无锁环形缓冲区，主要包含4类:
+    prod_tail
+    prod_head
+    cons_tail
+    cons_head
+其中prod是producer简写，cons是consumer的简写
+环形缓冲区写入的地方是tail
+环形缓冲区读取的地方是head
+```
+
+### 内存管理
+```
+此功能在rte_mempool中提供
+DPDK需要hugepages，这些页面按分段组合，然后分为多个区域。由应用程序或库（如队列，数据包缓冲区）创建的对象存于这些区域中。
+这些对象包括由rte_mempool库创建的内存池
+为了防止性能瓶颈，每个核心在内存池中都有一个额外的本地缓存.
+```
+
+### 缓冲区管理
+```
+此功能由rte_mbuf提供
+在Linux网络堆栈中，所有网络数据包均由sk_buff数据结构表示。在DPDK中，这是使用rte_mbuf结构完成的，该结构在rte_mbuf.h头文件中有描述。
+DPDK的缓冲区管理方式，不是使用一个大的sk_buff结构，而是许多较小的rte_mbuf缓冲区。缓冲区在DPDK应用程序启动之前创建并保存在内存池中,内存由rte_mempool分配。
+```
+
+### 时间管理
+```
+此功能由rte_timer提供
+该库为DPDK执行单元提供定时服务，提供异步执行功能的能力。
+```
+
+### 数据包转发算法支持
+```
+DPDK包含Hash（rte_hash）和最长前缀匹配（LPM, rte_lpm）库，用于支持数据包的转发算法。
+```
+
+### Makefile说明
+```
+1. 应用程序Makefile
+    开头: include $(RTE_SDK)/mk/rte.vars.mk
+    结尾: include $(RTE_SDK)/mk/rte.extapp.mk
+
+    必须定义的变量:
+        APP: 应用程序的名字
+        SRCS-y: 源文件列表(*.c,*.S)
+2. 库Makefile
+    与应用程序Makefile相比，唯一差别是将APP变量变成LIB，当然名字值也要调整，如libfoo.a
+
+3. 其他
+    除了固定结构外，可以对一些变量做调整，详情见DPDK文档，如下:
+    VPATH
+    CFLAGS_my_file.o
+    CFLAGS
+    CPPFLAGS
+    LDFLAGS
+    LDLIBS
+```
+
 ## 杂项
 
 ### HugePages说明
