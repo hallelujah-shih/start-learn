@@ -61,3 +61,6 @@ KNI接口创建后可以被DPDK应用程序动态删除。所有未删除的KNI�
 ## 程序细节分析
 ```
 ```
+
+## ref
+    [kni mac](http://dpdk.org/dev/patchwork/patch/31796/)
