@@ -80,10 +80,10 @@ exec setuidgid nobody /usr/bin/polipo -c /etc/polipo.conf
 
 3. 最好别这么操作(或者了解下)
 先看看
-> grep scanboot /var/log/audit/audit.log | audit2allow -m daemontools > daemontools.te
+> grep -a scanboot /var/log/audit/audit.log | audit2allow -m daemontools > daemontools.te
 > cat daemontools.te
 真正的处理
-> grep scanboot /var/log/audit/audit.log | audit2allow -M daemontools
+> grep -a scanboot /var/log/audit/audit.log | audit2allow -M daemontools
 > semodule -i daemontools.pp
 ```
 

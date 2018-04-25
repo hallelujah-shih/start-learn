@@ -4,6 +4,13 @@
 
 ## 编程基础
 ```
+CPU相关的基本概念
+处理器核数（CPU cores）：每个物理CPU核心个数
+逻辑处理器核心数（siblings）：单个物理处理器超线程的个数
+系统物理处理器封装ID（physical id）：也称为socket插槽，物理机处理器封装个数，物理CPU个数
+系统逻辑处理器ID（processor）：逻辑CPU数，是物理处理器的超线程技术
+在DPDK中会用到lcore,socket以及NUMA
+
 一些基本概念的说明和解释
 核心组件架构参见(https://dpdk.org/doc/guides/prog_guide/overview.html)
 
@@ -151,7 +158,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="default_hugepagesz=1G hugepagesz=1G hugepages=4"
 
 ### NUMA系统
 ```
-
+源于AMD Opteron微架构,处理器和本地内存之间有更小的延迟和更大的带宽；每个处理器还可以有自己的总线。处理器访问本地的总线和内存时延迟低，而访问远程资源时则要高。
 ```
 
 ### 驱动加载
@@ -168,6 +175,11 @@ DPDK 1.7提供了VFIO的支持，支持使用VFIO的平台，使用UIO是可选�
 > modprobe vfio-pci
 内核3.6.0后通常包含VFIO模块，且通常为默认存在，如果要使用VFIO，必须加在vfio-pci模块，另外要使用VFIO，内核和BIOS必须支持并配置使用IO虚拟化
 vfio-pci不支持创建虚拟功能
+```
+
+## 程序小片段
+```
+
 ```
 
 ## REF

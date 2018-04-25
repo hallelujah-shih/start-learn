@@ -58,9 +58,13 @@ KNI接口创建后可以被DPDK应用程序动态删除。所有未删除的KNI�
 > ifconfig vEth0 hw ether 00:11:22:33:44:55
 ```
 
-## 程序细节分析
+## 程序改造
 ```
+1. 增加了UDP数据包的封禁
+2. 所有192.168.78.10(VIP)的数据会转发到192.168.78.20的机器上（这儿我固定了MAC，正常应该是通过ARP获取），实现简单的LVS-DR测试
+3. 所有syn报文，且TCP携带payload的数据包直接丢弃
 ```
 
 ## ref
     [kni mac](http://dpdk.org/dev/patchwork/patch/31796/)
+    [修改的kni程序](./kni.c)
