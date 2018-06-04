@@ -43,7 +43,10 @@ dpdk绑定一张网卡（ens34）
 > ping domain.name
 若虚拟机环境，ping不通，需要将ether的地址改为网卡开始的mac地址
 > ifconfig dpdk0.kni hw ether 00:11:22:33:44:55
+# > ip link set dev dpdk0.kni address 00:11:22:33:44:55
 
+端口上配置LAN IP
+> bin/dpip addr add 192.168.78.100/24 dev dpdk0
 端口上配置VIP
 > bin/dpip addr add 192.168.78.10/32 dev dpdk0
 
