@@ -47,6 +47,8 @@ dpdk绑定一张网卡（ens34）
 
 端口上配置LAN IP
 > bin/dpip addr add 192.168.78.100/24 dev dpdk0
+# 可能要加上默认路由
+> bin/dpip route add default via 192.168.78.2 dev dpdk0
 端口上配置VIP
 > bin/dpip addr add 192.168.78.10/32 dev dpdk0
 
