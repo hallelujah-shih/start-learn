@@ -22,14 +22,14 @@
 修改partition个数: kafka-topics.sh --alter --topic <topic_name> --partitions <new_partition_num.> --zookeeper <zk_cluster>
 调整partition分布: kafka-reassign-partitions.sh --zookeeper <zk_cluster>> --reassignment-json-file <rebalance_json_file> --execute
 
+// 这里假设kafka有四个节点，replicas中填入的下标是从1开始的，即最大为4
 reassignment-json-file:
 {
     "version": 1,
     "partitions": [
-        {"topic": "hello1", "partition": 0, "replicas": [1, 2, 3]},
-        {"topic": "world1", "partition": 0, "replicas": [1, 2, 3]},    
-        {"topic": "world1", "partition": 1, "replicas": [2, 3, 1]},    
-        {"topic": "world1", "partition": 2, "replicas": [3, 1, 2]} 
+        {"topic": "world1", "partition": 0, "replicas": [1, 2, 3]},
+        {"topic": "world1", "partition": 1, "replicas": [2, 3, 4]},
+        {"topic": "world1", "partition": 2, "replicas": [3, 4, 1]}
     ]
 }
 ```
