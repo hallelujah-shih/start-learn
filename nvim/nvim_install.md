@@ -103,6 +103,26 @@ sudo update-alternatives --config editor
 
 ```
 
+#### clang-format
+```
+# 省略安装clang,clang-format
+# 下载clang-format.py
+> curl -fLo $HOME/bin/clang-format.py --create-dirs https://llvm.org/svn/llvm-project/cfe/trunk/tools/clang-format/clang-format.py
+> chmod +x $HOME/bin/clang-format.py
+# 在所在项目目录下创建fmt格式风格
+> clang-format -style=llvm -dump-config > .clang-format
+# 在.vimrc或init.vim下添加映射
+map <C-K> :pyf $HOME/bin/clang-format.py<cr>
+imap <C-K> <c-o>:pyf $HOME/bin/clang-format.py<cr>
+
+# 当文件保存时自动化格式化
+function! Formatonsave()
+  let l:formatdiff = 1
+  pyf ~/llvm/tools/clang/tools/clang-format/clang-format.py
+endfunction
+autocmd BufWritePre *.h,*.cc,*.cpp,*.hpp,*.c call Formatonsave()
+```
+
 ## reference
     [neovim install wiki](https://github.com/neovim/neovim/wiki/Installing-Neovim)
     [vim-plug](https://github.com/junegunn/vim-plug)
