@@ -1,0 +1,4 @@
+#!/bin/bash
+
+ulimit -n 102400
+exec softlimit -o 102400 hello -c /etc/hello.json

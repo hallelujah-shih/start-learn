@@ -1,0 +1,23 @@
+{
+    "remoteaddr": "10.0.0.10:8399",
+    "localaddr": "192.168.1.100:1207",
+    "crypt": "none",
+    "mode": "fast2",
+    "autoexpire": 60,
+    "mtu": 1350,
+    "sndwnd": 1024,
+    "rcvwnd": 1024,
+    "datashard": 70,
+    "parityshard": 30,
+    "dscp": 46,
+    "nocomp": false,
+    "acknodelay": false,
+    "nodelay": 0,
+    "interval": 40,
+    "resend": 0,
+    "nc": 0,
+    "sockbuf": 4194304,
+    "keepalive": 10,
+    "quiet": true,
+    "log": "/root/kcptun.log"
+}
