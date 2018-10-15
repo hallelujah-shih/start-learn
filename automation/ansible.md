@@ -22,4 +22,21 @@ src:
 mode:设置文件属性
 group:设置分组
 owner:设置owner
+示例:
+ansible dpvs -m copy -a "src='/home/shih/Downloads/go1.11.linux-amd64.tar.gz' dest='~/'"
 ```
+
+## 直接命令执行
+```
+直接执行shell可以不用 -m选项，如：
+ansible dpvs -a "tar -C /usr/local -xzf go1.11.linux-amd64.tar.gz"
+```
+
+## lineinfile模块
+```
+可以通过lineinfile处理配置文件，详细可以查看lineinfile的配置，示例如下：
+ansible dpvs -m lineinfile -a "path='/etc/profile' line='export PATH=\$PATH:/usr/local/go/bin'"
+ansible dpvs -m lineinfile -a "path='~/.bash_profile' line='export GOPATH=\$HOME/go'"
+ansible dpvs -m lineinfile -a "path='~/.bash_profile' line='export PATH=\$PATH:\$GOPATH/bin'"
+```
+
