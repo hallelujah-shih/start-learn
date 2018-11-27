@@ -53,3 +53,4 @@ settings存在一系列的default设置
     [clang-format style options](https://clang.llvm.org/docs/ClangFormatStyleOptions.html)
     [c/c++](https://marketplace.visoualstudio.com/items?itemName=ms-vscode.cpptools)
     [c/c++ clang command adapter](https://marketplace.visualstudio.com/items?itemName=mitaki28.vscode-clang)
+    [Visual Studio Code如何编写运行C、C++？](https://www.zhihu.com/question/30315894)
