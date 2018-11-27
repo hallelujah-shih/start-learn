@@ -1,0 +1,20 @@
+{
+    "editor.formatOnSave": true,
+
+    "C_Cpp.clang_format_style": "file",
+    "C_Cpp.clang_format_sortIncludes": true,
+
+    "C_Cpp.intelliSenseEngine": "Default",
+    "C_Cpp.autocomplete": "Disabled",
+    "C_Cpp.errorSquiggles": "Disabled",
+    "C_Cpp.formatting": "Disabled",
+
+    "C_Cpp.default.cStandard": "c11",
+    "C_Cpp.default.cppStandard": "c++11",
+
+    "clang.completion.enable": true,
+    "clang.diagnostic.enable": true,
+    "clang.completion.maxBuffer": 209715200,
+    "clang.diagnostic.maxBuffer": 2621440,
+    "clang.diagnostic.delay": 100
+}
