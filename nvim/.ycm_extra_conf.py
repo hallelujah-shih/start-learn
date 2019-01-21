@@ -76,6 +76,14 @@ get_python_inc(),
 '-isystem',
 './benchmarks/benchmark/include',
 
+# kernel
+'-isystem',
+'/usr/src/kernels/4.19.13-300.fc29.x86_64/arch/x86/include',
+'-isystem',
+'/usr/src/kernels/4.19.13-300.fc29.x86_64/arch/x86/include/generated',
+'-isystem',
+'/usr/src/kernels/4.19.13-300.fc29.x86_64/include',
+
 '-isystem',
 '/usr/include',
 '-isystem',
@@ -87,6 +95,9 @@ get_python_inc(),
 './src/include',
 '-isystem',
 './include',
+
+'-isystem',
+'/usr/include/c++/7',
 ]
 
 # Clang automatically sets the '-std=' flag to 'c++14' for MSVC 2015 or later,
