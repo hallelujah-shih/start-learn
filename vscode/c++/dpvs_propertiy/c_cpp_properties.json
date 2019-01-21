@@ -1,0 +1,42 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "browse": {
+                "path": [
+                    ".",
+                    "${workspaceFolder}/include",
+                    "${RTE_SDK}/build/include"
+                ],
+                "limitSymbolsToIncludedHeaders": false
+            },
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/include",
+                "${RTE_SDK}/build/include"
+            ],
+            "defines": [
+                "__DPVS__",
+                "DPVS_VERSION=\"0.1.0\"",
+                "DPVS_BUILD_DATE=\"2018.05.01\"",
+                "DPVS_MAX_SOCKET=2",
+                "DPVS_MAX_LCORE=64",
+                "_BSD_SOURCE",
+                "__GNUC__",
+                "RTE_MACHINE_CPUFLAG_SSE",
+                "RTE_MACHINE_CPUFLAG_SSE",
+                "RTE_MACHINE_CPUFLAG_SSE2",
+                "RTE_MACHINE_CPUFLAG_SSE3",
+                "RTE_MACHINE_CPUFLAG_SSSE3",
+                "RTE_MACHINE_CPUFLAG_SSE4_1",
+                "RTE_MACHINE_CPUFLAG_SSE4_2",
+                "RTE_COMPILE_TIME_CPUFLAGS=RTE_CPUFLAG_SSE,RTE_CPUFLAG_SSE2,RTE_CPUFLAG_SSE3,RTE_CPUFLAG_SSSE3,RTE_CPUFLAG_SSE4_1,RTE_CPUFLAG_SSE4_2"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}

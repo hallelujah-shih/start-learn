@@ -1,0 +1,33 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "/usr/src/kernels/4.19.13-300.fc29.x86_64/arch/x86/include",
+                "/usr/src/kernels/4.19.13-300.fc29.x86_64/arch/x86/include/generated",
+                "/usr/src/kernels/4.19.13-300.fc29.x86_64/include",
+                "${workspaceFolder}",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/kernel/include"
+            ],
+            "cStandard": "c11",
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "/usr/src/kernels/4.19.13-300.fc29.x86_64/arch/x86/include",
+                    "/usr/src/kernels/4.19.13-300.fc29.x86_64/arch/x86/include/generated",
+                    "/usr/src/kernels/4.19.13-300.fc29.x86_64/include",
+                    "${workspaceFolder}",
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/kernel/include"
+                ]
+            },
+            "defines": [
+                "__GNUC__",
+                "__KERNEL__"
+            ],
+            "cppStandard": "c++14"
+        }
+    ],
+    "version": 4
+}
