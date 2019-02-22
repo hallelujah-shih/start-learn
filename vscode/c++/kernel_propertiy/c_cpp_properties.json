@@ -3,28 +3,48 @@
         {
             "name": "Linux",
             "includePath": [
-                "/usr/src/kernels/4.19.13-300.fc29.x86_64/arch/x86/include",
-                "/usr/src/kernels/4.19.13-300.fc29.x86_64/arch/x86/include/generated",
-                "/usr/src/kernels/4.19.13-300.fc29.x86_64/include",
                 "${workspaceFolder}",
                 "${workspaceFolder}/include",
-                "${workspaceFolder}/kernel/include"
+                "${workspaceFolder}/kernel/include",
+                "${workspaceFolder}/kernel/include/uapi",
+                "/usr/include",
+                "/usr/local/include",
+                "/usr/src/kernels/4.20.6-200.fc29.x86_64/include",
+                "/usr/src/kernels/4.20.6-200.fc29.x86_64/include/uapi",
+                "/usr/src/kernels/4.20.6-200.fc29.x86_64/include/uapi/generated",
+                "/usr/src/kernels/4.20.6-200.fc29.x86_64/include/uapi/generated/uapi",
+                "/usr/src/kernels/4.20.6-200.fc29.x86_64/arch/x86/include",
+                "/usr/src/kernels/4.20.6-200.fc29.x86_64/arch/x86/include/uapi",
+                "/usr/src/kernels/4.20.6-200.fc29.x86_64/arch/x86/include/generated",
+                "/usr/src/kernels/4.20.6-200.fc29.x86_64/arch/x86/include/generated/uapi",
+                "/lib/gcc/x86_64-redhat-linux/8/include"
             ],
             "cStandard": "c11",
             "intelliSenseMode": "clang-x64",
             "browse": {
                 "path": [
-                    "/usr/src/kernels/4.19.13-300.fc29.x86_64/arch/x86/include",
-                    "/usr/src/kernels/4.19.13-300.fc29.x86_64/arch/x86/include/generated",
-                    "/usr/src/kernels/4.19.13-300.fc29.x86_64/include",
                     "${workspaceFolder}",
                     "${workspaceFolder}/include",
-                    "${workspaceFolder}/kernel/include"
+                    "${workspaceFolder}/kernel/include",
+                    "${workspaceFolder}/kernel/include/uapi",
+                    "/usr/include",
+                    "/usr/local/include",
+                    "/usr/src/kernels/4.20.6-200.fc29.x86_64/include",
+                    "/usr/src/kernels/4.20.6-200.fc29.x86_64/include/uapi",
+                    "/usr/src/kernels/4.20.6-200.fc29.x86_64/include/uapi/generated",
+                    "/usr/src/kernels/4.20.6-200.fc29.x86_64/include/uapi/generated/uapi",
+                    "/usr/src/kernels/4.20.6-200.fc29.x86_64/arch/x86/include",
+                    "/usr/src/kernels/4.20.6-200.fc29.x86_64/arch/x86/include/uapi",
+                    "/usr/src/kernels/4.20.6-200.fc29.x86_64/arch/x86/include/generated",
+                    "/usr/src/kernels/4.20.6-200.fc29.x86_64/arch/x86/include/generated/uapi",
+                    "/lib/gcc/x86_64-redhat-linux/8/include"
                 ]
             },
             "defines": [
                 "__GNUC__",
-                "__KERNEL__"
+                "__KERNEL__",
+                "CONFIG_SLAB",
+                "CONFIG_64BIT"
             ],
             "cppStandard": "c++14"
         }

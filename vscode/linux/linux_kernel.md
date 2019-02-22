@@ -10,6 +10,8 @@ include/linux/autoconf.h (old kernel)
 # include目录
 include
 include/uapi
+include/generated
+include/generated/uapi
 arch/architecture/include
 arch/architecture/include/uapi
 arch/architecture/include/generated
