@@ -23,6 +23,9 @@ set smarttab
 filetype plugin indent on
 autocmd FileType go set expandtab
 
+let g:clang_format#detect_style_file=1
+let g:clang_format#auto_format=1
+
 function! BuildYCM(info)
     if a:info.status == 'installed' || a:info.force
         " 可以是--all，我这儿主要是C/C++/Python/Go
@@ -86,6 +89,9 @@ Plug 'nickhutchinson/vim-systemtap'
 
 " 系统配色solarized
 Plug 'https://github.com/altercation/vim-colors-solarized'
+
+" fmt
+Plug 'rhysd/vim-clang-format'
 
 call plug#end()
 
