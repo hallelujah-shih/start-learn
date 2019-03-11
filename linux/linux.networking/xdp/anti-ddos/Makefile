@@ -3,7 +3,7 @@ CLANG ?= clang
 LLC ?= llc
 ARCH := $(subst x86_64,x86,$(shell arch))
 
-BIN := xdp_dummy.o
+BIN := xdp_anti_ddos.o
 CLANG_FLAGS = -I. -I$(KDIR)/arch/$(ARCH)/include \
 -I$(KDIR)/arch/$(ARCH)/include/generated \
 -I$(KDIR)/include \
@@ -12,18 +12,18 @@ CLANG_FLAGS = -I. -I$(KDIR)/arch/$(ARCH)/include \
 -I$(KDIR)/include/uapi \
 -I$(KDIR)/include/generated/uapi \
 -include $(KDIR)/include/linux/kconfig.h \
--I$(KDIR)/tools/testing/selftests/bpf/ \
 -D__KERNEL__ -D__BPF_TRACING__ -Wno-unused-value -Wno-pointer-sign \
 -D__TARGET_ARCH_$(ARCH) -Wno-compare-distinct-pointer-types \
 -Wno-gnu-variable-sized-type-not-at-end \
 -Wno-address-of-packed-member -Wno-tautological-compare \
 -Wno-unknown-warning-option \
 -O2 -emit-llvm
+#-I$(KDIR)/tools/testing/selftests/bpf/ 
 
 all: $(BIN)
 
-xdp_dummy.o: xdp_dummy.c
+xdp_anti_ddos.o: xdp_anti_ddos.c
 	$(CLANG) $(CLANG_FLAGS) -c $< -o - | $(LLC) -march=bpf -mcpu=$(CPU) -filetype=obj -o $@
 
 clean:
-	rm -f xdp_dummy.o
+	rm -f xdp_anti_ddos.o
