@@ -46,6 +46,13 @@ settings存在一系列的default设置
     "clang.diagnostic.maxBuffer": 2621440,
     "clang.diagnostic.delay": 100
 ```
+## Other
+```
+markdown to pdf
+> ext install yzane.markdown-pdf
+
+
+```
 
 ## REF
     [cpp-tools-settings](https://github.com/Microsoft/vscode-cpptools/blob/master/Documentation/LanguageServer/Customizing%20Default%20Settings.md)
@@ -54,3 +61,4 @@ settings存在一系列的default设置
     [c/c++](https://marketplace.visoualstudio.com/items?itemName=ms-vscode.cpptools)
     [c/c++ clang command adapter](https://marketplace.visualstudio.com/items?itemName=mitaki28.vscode-clang)
     [Visual Studio Code如何编写运行C、C++？](https://www.zhihu.com/question/30315894)
+    [markdown-pdf]("https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf")
