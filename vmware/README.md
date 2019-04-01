@@ -14,3 +14,14 @@ vmware版本:14
 > rm vmmon-only -rf
 > vmware-modconfig –console –install-all
 ```
+
+### 升级openssh后ssh连接报错
+```
+fedora 29
+packet_write_wait: Connection to xxxxxx port xx: Broken pipe
+细节未追究，大概是vmware nat的锅
+在config中加入
+Host *
+    IPQoS lowdelay throughput
+问题得到解决
+```
