@@ -46,3 +46,5 @@ CONFIG_TEST_BPF=m
     [Troubleshooting BPF]("https://prototype-kernel.readthedocs.io/en/latest/bpf/troubleshooting.html")
     [cilium]("https://cilium.io/")
     [katran]("https://github.com/facebookincubator/katran")
+    [gcc]("https://gcc.gnu.org/onlinedocs/gcc-8.3.0/gcc/")
+    [asm goto not supported]("https://lore.kernel.org/patchwork/patch/903103/")

@@ -18,6 +18,8 @@
 
 #define KBUILD_MODNAME "xdp_anti_ddos"
 
+#include "quirks.h"
+
 #include <linux/kernel.h>
 #include <net/ip.h>
 #include <uapi/linux/bpf.h>

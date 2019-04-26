@@ -18,6 +18,8 @@
 
 #define KBUILD_MODNAME "xdp_dummy"
 
+#include "quirks.h"
+
 #include <linux/kernel.h>
 #include <uapi/linux/bpf.h>
 #include <uapi/linux/if_ether.h>
@@ -30,28 +32,28 @@
 
 SEC("prog")
 int xdp_dummy(struct xdp_md *ctx) {
-  struct iphdr *iph;
-  struct tcphdr *tcph;
-  void *data_end = (void *)(long)ctx->data_end;
-  void *data = (void *)(long)ctx->data;
+    struct iphdr *iph;
+    struct tcphdr *tcph;
+    void *data_end = (void *)(long)ctx->data_end;
+    void *data = (void *)(long)ctx->data;
 
-  struct ethhdr *eth = data;
-  if (eth + 1 > data_end) return XDP_DROP;
+    struct ethhdr *eth = data;
+    if (eth + 1 > data_end) return XDP_DROP;
 
-  if (eth->h_proto != ntohs(ETH_P_IP)) return XDP_PASS;
+    if (eth->h_proto != ntohs(ETH_P_IP)) return XDP_PASS;
 
-  iph = (struct iphdr *)(eth + 1);
-  if ((iph + 1) > data_end || iph->ihl != 5) return XDP_DROP;
+    iph = (struct iphdr *)(eth + 1);
+    if ((iph + 1) > data_end || iph->ihl != 5) return XDP_DROP;
 
-  if (iph->protocol != IPPROTO_TCP) return XDP_PASS;
+    if (iph->protocol != IPPROTO_TCP) return XDP_PASS;
 
-  tcph = (struct tcphdr *)(iph + 1);
+    tcph = (struct tcphdr *)(iph + 1);
 
-  if ((tcph + 1) > data_end) return XDP_DROP;
+    if ((tcph + 1) > data_end) return XDP_DROP;
 
-  if (ntohs(tcph->dest) != 22) return XDP_DROP;
+    if (ntohs(tcph->dest) != 22) return XDP_DROP;
 
-  return XDP_PASS;
+    return XDP_PASS;
 }
 
 char _license[] SEC("license") = "GPL";
