@@ -11,7 +11,7 @@ private_key_path = "../private_key.pem"
 def encrypt(message, rsa_public_key):
     buf = io.BytesIO()
     message = message.encode()
-    max_block_len = int(rsa_public_key.size() / 8) - 11
+    max_block_len = rsa_public_key.size_in_bytes() - 11
 
     cipher = PKCS1_v1_5.new(rsa_public_key)
     for i in range(0, len(message), max_block_len):
@@ -21,7 +21,7 @@ def encrypt(message, rsa_public_key):
 
 def decrypt(secret_message, rsa_private_key):
     buf = io.BytesIO()
-    max_block_len = int((rsa_private_key.size()+1)/8)
+    max_block_len = rsa_private_key.size_in_bytes()
     cipher = PKCS1_v1_5.new(rsa_private_key)
     secret_message = base64.b64decode(secret_message)
     for i in range(0, len(secret_message), max_block_len):
