@@ -62,6 +62,15 @@ vim run
 exec setuidgid nobody /usr/bin/polipo -c /etc/polipo.conf
 
 > chmod +x run
+
+
+***如何设置limit***
+> exec setuidgid someuser softlimit -o 102400 somecommand # http://cr.yp.to/daemontools/softlimit.html
+
+***如何设置环境变量***
+http://thedjbway.b0llix.net/daemontools/envdir.html
+or
+export aaa=xxx
 ```
 
 ## 安全相关
