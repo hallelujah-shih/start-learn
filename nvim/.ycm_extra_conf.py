@@ -223,6 +223,7 @@ def FlagsForFile(filename):
     if compilation_db_flags:
         final_flags = compilation_db_flags
     else:
+        final_flags = []
         if IsSourceFile(filename):
             extension = os.path.splitext(filename)[1]
             if extension in C_SOURCE_EXTENSIONS:
