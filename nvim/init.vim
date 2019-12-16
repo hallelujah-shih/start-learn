@@ -114,6 +114,7 @@ let g:tagbar_width=30
 
 " ycm代码补全相关
 " https://github.com/Valloric/ycmd/blob/master/cpp/ycm/.ycm_extra_conf.py 放入此插件的目录中，加上引用
+let g:ycm_confirm_extra_conf = 0
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 let g:ycm_use_ultisnips_completer = 1
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
