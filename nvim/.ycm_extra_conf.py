@@ -1,4 +1,5 @@
 import os
+import subprocess
 import os.path
 import fnmatch
 import logging
@@ -61,7 +62,43 @@ HEADER_DIRECTORIES = [
         'include'
         ]
 
+kernel_flags = [
+        '-D__KERNEL__',
+        '-nostdinc',
+        '-D__GNUC__'
+]
+
+kernel_dirs = [
+        'include',
+        'include/uapi',
+        'include/generated',
+        'include/generated/uapi',
+        'arch/x86/include',
+        'arch/x86/include/uapi',
+        'arch/x86/include/generated',
+        'arch/x86/include/generated/uapi'
+]
+
+kernel_includes = [
+        'include/generated/autoconf.h',
+        'include/linux/kconfig.h'
+]
+
 BUILD_DIRECTORY = 'build';
+
+
+
+def getKernelSrcDir():
+    process = subprocess.Popen(['uname', '-r'], stdout=subprocess.PIPE)
+    stdout, _ = process.communicate()
+    process.wait()
+    kernel_vertion = stdout.strip()
+    if kernel_vertion:
+        if isinstance(kernel_vertion, bytes):
+            kernel_vertion = kernel_vertion.decode()
+        return os.path.join("/usr/src/kernels", kernel_vertion)
+    return ""
+
 
 def IsSourceFile(filename):
     extension = os.path.splitext(filename)[1]
@@ -199,6 +236,15 @@ def FlagsForFile(filename):
         include_flags = FlagsForInclude(root)
         if include_flags:
             final_flags = final_flags + include_flags
+
+        kdir = getKernelSrcDir()
+        if kdir:
+            for d in kernel_dirs:
+                final_flags.append("-I" + os.path.join(kdir, d))
+            for f in kernel_includes:
+                final_flags.append("-include" + os.path.join(kdir, f))
+        final_flags = final_flags + kernel_flags
+
     return {
             'flags': final_flags,
             'do_cache': True
