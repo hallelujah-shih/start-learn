@@ -84,10 +84,14 @@ mkfs -t ext4 /dev/sdb3
 > sudo vgextend fedora /dev/sda3
 ```
 
-### 逻辑卷扩展
+## 逻辑卷扩展
 ```
 根据lvdisplay的结果，我需要扩展的逻辑卷是root，路径为/dev/fedora/root，并将所有空间扩展至此卷
-> lvextend /dev/fedora/root -l+100%FREE
+> sudo lvextend /dev/fedora/root -l+100%FREE
 ```
 
-### 
+## 调整分区大小
+```
+我使用的ext4，所以使用命令resize2fs
+> sudo resize2fs /dev/fedora/root
+```
