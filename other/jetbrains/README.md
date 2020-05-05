@@ -3,9 +3,16 @@
 关于较新版本的IDE激活后判断失效问题的处理
 ```
 
+## DNS地址
+```
+# NAT
+DNSSERVER=192.168.81.2
+不固定，只要几处配置一致即可
+```
+
 ## 更改DNS
 ```
-安装dnsmasq，将nameserver设置为114.114.114.114（暂定，后续防火墙需要）
+安装dnsmasq，将nameserver设置为$DNSSERVER（暂定，后续防火墙需要）
 
 更改hosts
 0.0.0.0 account.jetbrains.com
@@ -25,10 +32,10 @@ set ipv4.ignore-auto-dns yes
 ## 更改防火墙规则
 ```
 firewalld-cmd操作：
-    > sudo firewall-cmd --permanent --direct --add-rule ipv4 filter OUTPUT 0 -p udp ! -d 114.114.114.114 --destination-port 53 -j DROP
+    > sudo firewall-cmd --permanent --direct --add-rule ipv4 filter OUTPUT 0 -o ens33 -p udp ! -d $DNSSERVER --destination-port 53 -j DROP
     > sudo firewall-cmd --complete-reload
 若非firewalld服务，直接Iptables命令如下：
-    > sudo iptables -A OUTPUT -p udp ! -d 114.114.114.114 --destination-port 53 -j DROP
+    > sudo iptables -A OUTPUT -o ens33 -p udp ! -d 114.114.114.114 --destination-port 53 -j DROP
 ```
 
 ## 说明
