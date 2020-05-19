@@ -34,6 +34,12 @@ set ipv4.ignore-auto-dns yes
 firewalld-cmd操作：
     > sudo firewall-cmd --permanent --direct --add-rule ipv4 filter OUTPUT 0 -o ens33 -p udp ! -d $DNSSERVER --destination-port 53 -j DROP
     > sudo firewall-cmd --complete-reload
+
+# 删除可能错误的配置
+> sudo firewall-cmd --permanent --direct --get-all-rules
+ ipv4 filter OUTPUT 0 -o ens33 -p udp '!' -d 114.114.114.114 --destination-port 53 -j DROP
+> sudo firewall-cmd --permanent --direct --remove-rule ipv4 filter OUTPUT 0 -o ens33 -p udp '!' -d 114.114.114.114 --destination-port 53 -j DROP
+
 若非firewalld服务，直接Iptables命令如下：
     > sudo iptables -A OUTPUT -o ens33 -p udp ! -d 114.114.114.114 --destination-port 53 -j DROP
 ```
