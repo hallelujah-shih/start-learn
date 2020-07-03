@@ -37,6 +37,12 @@ endfunction
 " - For Neovim: ~/.local/share/nvim/plugged
 " - 我nvim也是用的vim的目录，便于vim和nvim共用
 call plug#begin('~/.local/share/nvim/plugged')
+" 网络隔离下安装插件
+" step 1. 下载vim plugin
+" step 2. 解压放入本地目录，此处假设~/.local/share/nvim/plugged/my_plug
+" step 3. 在此处写：Plug 'file://'.expand('~/.local/share/nvim/plugged/my_plug')
+
+
 " 编码相关
 Plug 'junegunn/vim-easy-align'
 
