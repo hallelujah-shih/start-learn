@@ -58,6 +58,9 @@ Plug 'stamblerre/gocode', { 'rtp': 'nvim', 'do': '~/.local/share/nvim/plugged/go
 " vim 
 " Plug 'stamblerre/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 
+" template
+Plug 'aperezdc/vim-template'
+
 "" C/C++
 Plug 'vim-scripts/a.vim'
 Plug 'vim-scripts/c.vim'
