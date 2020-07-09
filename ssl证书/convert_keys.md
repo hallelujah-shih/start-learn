@@ -24,5 +24,17 @@
 > openssl rsa -in encryedprivate.key -out unencryptd.key
 ```
 
+## PFX转PEM
+```
+> openssl pkcs12 -in jcbank_pri.pfx -nodes -out jcbank_pri.pem
+如果有密码，抹掉密码
+> openssl rsa -in jcbank_pri.pem -out jcbank_pri.pem
+```
+
+## CER转PEM
+```
+> openssl x509 -inform der -in businessgate.cer -out businessgate.pem
+```
+
 ## REF
     [CONVERT PRIVATE SSL KEY FROM JKS TO PEM FORMAT](https://cinhtau.net/2016/08/09/convert-private-ssl-key-from-jks-to-pem-format/)
