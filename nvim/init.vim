@@ -158,6 +158,9 @@ if has("cscope")
 	nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 endif
 
+" 不用vim-go的template
+let g:go_template_autocreate = 0
+
 " solarized设置
 "syntax enable
 "if has('gui_running')
