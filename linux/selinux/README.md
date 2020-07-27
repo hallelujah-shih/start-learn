@@ -3,6 +3,12 @@
 一些selinux碰到的问题记录与解决
 ```
 
+## 恢复文件默认的SELinux security contexts
+```
+例如，修改了系统配置文件的时候可能改变了文件属性
+> sudo restorecon -FRv /etc/crontab
+```
+
 ## deamon.tools的selinux问题
 ```
 参见../../service_manager/daemon.tools.md
