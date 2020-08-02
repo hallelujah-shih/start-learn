@@ -117,8 +117,10 @@ let g:UltiSnipsJumpBackwardTrigger="<c-o>"
 let g:UltiSnipsEditSplit="vertical"
 
 " 左右“属性”栏的映射
-map <C-n> :NERDTreeToggle<CR>
-map <C-m> :TagbarToggle <CR>
+" map <C-n> :NERDTreeToggle<CR>
+nnoremap <leader>tn :NERDTreeToggle<CR>
+" map <C-m> :TagbarToggle<CR>
+nnoremap <leader>tm :TagbarToggle<CR>
 let g:tagbar_width=30
 
 " ycm代码补全相关
@@ -127,6 +129,7 @@ let g:ycm_confirm_extra_conf = 0
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 let g:ycm_use_ultisnips_completer = 1
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
+nnoremap <leader>jf :YcmCompleter GoToReferences<CR>
 
 let g:indentLine_setColors = 0
 let g:indentLine_enabled = 1
