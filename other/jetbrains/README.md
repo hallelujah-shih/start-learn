@@ -3,6 +3,12 @@
 关于较新版本的IDE激活后判断失效问题的处理
 ```
 
+## jetbrains解决ibus输入法锁定的问题
+```
+1. Go to "Help | Edit Custom VM options..."
+2. Add -Drecreate.x11.input.method=true to a new line
+3. Restart IDE
+```
 ## DNS地址
 ```
 # NAT
@@ -48,3 +54,6 @@ firewalld-cmd操作：
 ```
 发现jetbrains较新版本均是直接请求dns，且程序内至少有1.1.1.1,1.0.0.1两个dns服务器列表用于查询account，www域名
 ```
+
+## ref
+    [ibus+jetbrains]("https://youtrack.jetbrains.com/issue/JBR-2444")
