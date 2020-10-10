@@ -67,9 +67,12 @@ Plug 'stamblerre/gocode', { 'rtp': 'nvim', 'do': '~/.local/share/nvim/plugged/go
 " template
 Plug 'aperezdc/vim-template'
 
+" edit-config
+Plug 'editorconfig/editorconfig-vim'
+
 "" C/C++
-Plug 'vim-scripts/a.vim'
-Plug 'vim-scripts/c.vim'
+" Plug 'vim-scripts/a.vim'
+" Plug 'vim-scripts/c.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 
 " markdown
@@ -128,8 +131,17 @@ let g:tagbar_width=30
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 let g:ycm_use_ultisnips_completer = 1
+"在注释输入中也能补全
+let g:ycm_complete_in_comments = 1
+"在字符串输入中也能补全
+"let g:ycm_complete_in_strings = 1
+"注释和字符串中的文字也会被收入补全
+let g:ycm_collect_identifiers_from_comments_and_strings = 0
+
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 nnoremap <leader>jf :YcmCompleter GoToReferences<CR>
+
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 let g:indentLine_setColors = 0
 let g:indentLine_enabled = 1
