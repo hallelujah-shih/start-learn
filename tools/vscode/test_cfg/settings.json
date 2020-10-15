@@ -1,0 +1,21 @@
+{
+    "editor.formatOnSave": true,
+    "C_Cpp.clang_format_sortIncludes": true,
+    "C_Cpp.default.includePath": [],
+    "C_Cpp.default.defines": [],
+    "C_Cpp.errorSquiggles": "Disabled",
+    "C_Cpp.formatting": "Disabled",
+    "C_Cpp.updateChannel": "Insiders",
+    "C_Cpp.default.intelliSenseMode": "clang-x64",
+    "clang.completion.maxBuffer": 209715200,
+    "clang.diagnostic.delay": 100,
+    "clang.diagnostic.maxBuffer": 2621440,
+    "clang.completion.enable": true,
+    "clang.diagnostic.enable": true,
+    "clang.cflags": [
+        "-Wall",
+        "-Wno-unused-variable",
+        "-Wno-unused-function",
+        "-Wno-compare-distinct-pointer-types"
+    ]
+}

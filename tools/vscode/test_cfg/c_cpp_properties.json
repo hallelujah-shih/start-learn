@@ -1,0 +1,38 @@
+{
+    "env": {
+        "kernelIncludePath": [
+            "${env:KDIR}/include",
+            "${env:KDIR}/include/uapi",
+            "${env:KDIR}/include/generated/uapi",
+            "${env:KDIR}/arch/${env:ARCH}/include",
+            "${env:KDIR}/arch/${env:ARCH}/include/generated",
+            "${env:KDIR}/arch/${env:ARCH}/include/generated/uapi",
+            "${env:KDIR}/arch/${env:ARCH}/include/uapi"
+        ],
+        "kernelForceInclude": [
+            "${env:KDIR}/include/linux/kconfig.h"
+        ]
+    },
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${kernelIncludePath}",
+                "include",
+                "../../include"
+            ],
+            "forcedInclude": [
+                "${kernelForceInclude}"
+            ],
+            "defines": [
+                "__KERNEL__",
+                "__BPF_TRACING__"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}
