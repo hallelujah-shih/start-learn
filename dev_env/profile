@@ -1,0 +1,7 @@
+# golang
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+
+# kernel dev
+export KDIR=/lib/modules/$(uname -r)/build
+export ARCH=$(echo $(arch) | sed 's/x86_64/x86/g')
+

@@ -1,0 +1,6 @@
+# golang env
+[ -f ~/.envrc ] && source ~/.envrc
+
+# dpdk
+export RTE_SDK=/root/dpdk-stable-17.05.2
+export RTE_TARGET=x86_64-native-linuxapp-gcc
