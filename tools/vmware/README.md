@@ -25,3 +25,10 @@ Host *
     IPQoS lowdelay throughput
 问题得到解决
 ```
+
+### vmware.service启动错误
+```
+https://askbot.fedoraproject.org/en/question/109763/installing-vmware-1257-for-linux-on-fedora-26/
+https://kb.vmware.com/s/article/58533
+https://kb.vmware.com/s/article/2146460
+```
