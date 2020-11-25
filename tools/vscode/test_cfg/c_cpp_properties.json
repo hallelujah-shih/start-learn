@@ -26,7 +26,8 @@
             ],
             "defines": [
                 "__KERNEL__",
-                "__BPF_TRACING__"
+                "__BPF_TRACING__",
+                "VERSION=0x01010101"
             ],
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c11",
