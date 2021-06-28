@@ -21,4 +21,13 @@ ln -s /opt/vim/autoload ~/.vim/autoload
 #编译ycm
 cd /opt/vim/plugged/YouCompleteMe/
 python3 install.py --go-completer --clang-completer --system-libclang --clangd-completer
+
+## ubuntu注意
+# cmake 需要高版本，如果是ubuntu
+sudo snap install cmake --classic
+# ubuntu gcc需要高版本，需支持c++17
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt install g++-10 g++-10-multilib gcc-10 gcc-10-multilib
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 90 --slave /usr/bin/g++ g++ /usr/bin/g++-10 --slave /usr/bin/gcov gcov /usr/bin/gcov-10
 ```
