@@ -23,8 +23,14 @@ cd /opt/vim/plugged/YouCompleteMe/
 python3 install.py --go-completer --clang-completer --system-libclang --clangd-completer
 
 ## ubuntu注意
+# vim需要高版本
+sudo add-apt-repository ppa:jonathonf/vim
+sudo apt update
+sudo apt install vim
 # cmake 需要高版本，如果是ubuntu
 sudo snap install cmake --classic
+# clang 需要高版本(>=7)
+sudo apt install clang-10 libclang-10-dev llvm-10-dev llvm-dev
 # ubuntu gcc需要高版本，需支持c++17
 sudo apt install software-properties-common
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
