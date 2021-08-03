@@ -20,6 +20,9 @@ ln -s /opt/vim/autoload ~/.vim/autoload
 
 #编译ycm
 cd /opt/vim/plugged/YouCompleteMe/
+# 如果ycm的submodule更新有问题
+# git submodule update --init --recursive
+# git pull --recurse-sub
 python3 install.py --go-completer --clang-completer --system-libclang --clangd-completer
 
 ## ubuntu注意
