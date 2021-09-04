@@ -26,5 +26,10 @@ type=AVC msg=audit(1544879292.428:335): avc:  denied  { open } for  pid=10592 co
 > chcon -u system_u -r system_r -t openvpn_t -R .shit/
 > sudo setenforce 1
 
+或者是直接
+grep openvpn /var/log/audit/audit.log | audit2allow -M myvpn
+semodule -i myvpn.pp
+
 然后就可以使用vpn进行友好连接了
 ```
+
