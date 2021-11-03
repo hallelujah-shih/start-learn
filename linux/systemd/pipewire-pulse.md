@@ -46,5 +46,15 @@ ulimit -v unlimited is the same as LimitAS=infinity
 ulimit -m unlimited is the same as LimitRSS=infinity
 ```
 
+## 说明
+```
+现在哪怕pipewire-pulse没有问题，音频还是可能出现问题，详情与https://bugzilla.redhat.com/show_bug.cgi?id=1811033帖子说的一模一样
+
+现在的解决办法如下：
+systemctl start systemd-suspend
+
+至于内核模块的option方法，请测无效
+```
 ## ref
 [how-to-set-ulimits-on-service-with-systemd](https://unix.stackexchange.com/questions/345595/how-to-set-ulimits-on-service-with-systemd)
+[Dell XPS 15 sound issues - snd_hda_intel](https://bugzilla.redhat.com/show_bug.cgi?id=1811033)
