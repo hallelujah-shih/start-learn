@@ -19,6 +19,26 @@ sudo dnf -y install virt-manager
 ```
 
 
+### 更简单的安装方式
+```
+sudo dnf install @virtualization
+```
+
+### 普通用户能正常使用
+```
+修改配置文件: /etc/libvirt/libvirtd.conf
+将选项放开如下：
+unix_sock_group = "libvirt"
+unix_sock_rw_perms = "0770"
+
+服务:
+sudo systemctl enable libvirtd
+sudo systemctl restart libvirtd
+
+用户添加到组:
+sudo usermod -a -G libvirt $(whoami)
+```
+
 ## 其他
 ```
 安装的windows窗口能够自适应
@@ -30,3 +50,4 @@ https://www.spice-space.org/download/windows/spice-guest-tools/spice-guest-tools
 ## ref
     [install kvm on fedora](https://computingforgeeks.com/how-to-install-kvm-on-fedora/)
     [spice-space](https://www.spice-space.org/download.html)
+    [如何使用 virt-manager 运行虚拟机](https://juejin.cn/post/6844903904568672264)
