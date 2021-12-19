@@ -8,7 +8,7 @@ User=root
 Group=root
 Restart=always
 ExecStart=/usr/local/bin/svscanboot /dev/ttyS0
-TimeoutSec=0
+TimeoutSec=5
 
 [Install]
 WantedBy=multi-user.target
