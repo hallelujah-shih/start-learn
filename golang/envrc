@@ -1,6 +1,7 @@
 export GO111MODULE=on
 export GOPRIVATE=git.xwfintech.com/\*
 export GOFLAGS=-mod=vendor
-export GOPROXY=https://mirrors.aliyun.com/goproxy/,direct
+# export GOPROXY=https://mirrors.aliyun.com/goproxy/,direct
+export GOPROXY="https://goproxy.io,direct"
 # 内网关闭GOSUMDB
 # export GOSUMDB=off
