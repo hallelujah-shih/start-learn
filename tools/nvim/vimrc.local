@@ -54,7 +54,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " 左右“属性”栏
-Plug 'scrooloose/nerdtree' ", { 'on':  'NERDTreeToggle' }
+Plug 'preservim/nerdtree' ", { 'on':  'NERDTreeToggle' }
 Plug 'majutsushi/tagbar'
 
 " 编程语言相关
