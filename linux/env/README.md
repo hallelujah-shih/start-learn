@@ -34,5 +34,18 @@ make show-includes | sort -u
 ./include/linux/kconfig.h
 ```
 
+## vscode看内核代码
+```
+1. 安装global （apt install global）
+2. vscode 安装C/C++ GNU Global
+    其中在项目的settings.json里面指定global相关路径
+    "gnuGlobal.globalExecutable": "/usr/bin/global",
+    "gnuGlobal.gtagsExecutable": "/usr/bin/gtags",
+    // 指明生成的符号表存放在哪个位置
+    "gnuGlobal.objDirPrefix": "/mnt/.global"
+3. ctrl + shift + p 执行 global: rebuild gtags database
+```
+
 ## ref
     [ycm cfg kernerl develop](https://ops.tips/blog/developing-ebpf-with-autocompletion-support/)
+    [VSCode 阅读 Linux 代码怎么才不卡顿？这样做才能快的飞起！](https://mp.weixin.qq.com/s/dK5P4nbGw7IvzULDTLVYSg)
