@@ -39,6 +39,13 @@ sudo systemctl restart libvirtd
 sudo usermod -a -G libvirt $(whoami)
 ```
 
+## ubuntu
+```
+sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
+
+sudo apt install virt-manager
+```
+
 ## 其他
 ```
 安装的windows窗口能够自适应
