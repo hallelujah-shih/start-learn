@@ -4,19 +4,33 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/include",
-                "${workspaceFolder}/arch/x86/include"
-            ],
-            "forcedInclude": [
-                "${workspaceFolder}/include/generated/autoconf.h"
+                "${KDIR}/arch/${ARCH}/include",
+                "${KDIR}/arch/${ARCH}/include/generated",
+                "${KDIR}/include",
+                "${KDIR}/arch/${ARCH}/include/uapi",
+                "${KDIR}/arch/${ARCH}/include/generated/uapi",
+                "${KDIR}/include/uapi",
+                "${KDIR}/include/generated",
+                "${KDIR}/include/generated/uapi"
             ],
             "defines": [
                 "__GNUC__",
-                "__KERNEL__"
+                "__KERNEL__",
+                "MODULE"
             ],
             "compilerPath": "/usr/bin/clang",
-            "cStandard": "c11",
-            "intelliSenseMode": "clang-x64"
+            "cStandard": "c89",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-clang-x64",
+            "compilerArgs": [
+                "-nostdinc",
+                "-isystem", 
+                "/usr/lib/gcc/x86_64-linux-gnu/9/include",
+                "-include",
+                "${KDIR}/include/linux/kconfig.h",
+                "-include", 
+                "${KDIR}/include/linux/compiler_types.h"
+            ]
         }
     ],
     "version": 4
