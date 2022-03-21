@@ -18,6 +18,9 @@
                 "__KERNEL__",
                 "MODULE"
             ],
+            "forcedInclude": [
+                "${KDIR}/include/generated/autoconf.h"
+            ],
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c89",
             "cppStandard": "c++14",
