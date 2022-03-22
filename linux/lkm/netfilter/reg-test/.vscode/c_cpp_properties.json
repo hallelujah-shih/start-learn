@@ -1,0 +1,29 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${KDIR}/include",
+                "${KDIR}/include/uapi",
+                "${KDIR}/include/generated",
+                "${KDIR}/arch/${ARCH}/include",
+                "${KDIR}/arch/${ARCH}/include/uapi",
+                "${KDIR}/arch/${ARCH}/include/generated"
+            ],
+            "forcedInclude": [
+                "${KDIR}/include/generated/autoconf.h"
+            ],
+            "defines": [
+                "__KERNEL__",
+                "__GNUC__",
+                "MODULE"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-clang-x64"
+        }
+    ],
+    "version": 4
+}
