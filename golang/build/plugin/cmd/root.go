@@ -27,16 +27,22 @@ var rootCmd = &cobra.Command{
 		if err != nil {
 			log.Panicln(err)
 		}
-		v, err := p.Lookup("New")
+		newf, err := p.Lookup("New")
 		if err != nil {
 			log.Panicln(err)
 		}
-		vi, ok := v.(func() plugins.Plugin)
+		vi, ok := newf.(func() plugins.Plugin)
 		if !ok {
 			log.Panicln("cast failed")
 		}
 		obj := vi()
 		fmt.Println(obj.Name())
+
+		v, err := p.Lookup("Plugin1")
+		if err != nil {
+			log.Panicln(err)
+		}
+		fmt.Printf("%T\n", v)
 	},
 }
 
