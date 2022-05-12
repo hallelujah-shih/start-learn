@@ -1,0 +1,20 @@
+[ req ]
+default_bits = 4096
+distinguished_name = shih-build
+prompt = no
+x509_extensions = myexts
+
+[ shih-build ]
+C = CN
+ST = Sichuan
+L = Chengdu
+O = test inc.
+OU = IT
+CN = shih kernel signing key
+emailAddress = sh19871122@gmail.com
+
+[ myexts ]
+basicConstraints=critical,CA:FALSE
+keyUsage=digitalSignature
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid
