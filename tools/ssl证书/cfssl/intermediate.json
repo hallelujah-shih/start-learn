@@ -1,0 +1,23 @@
+{
+    "CN": "test Intermediate Root CA",
+    "key": {
+        "algo": "rsa",
+        "size": 2048
+    },
+    "names": [
+        {
+            "C": "CN",
+            "L": "chengdu",
+            "O": "shih",
+            "OU": "test ca",
+            "ST": "sichuan"
+        }
+    ],
+    "ca": {
+        "expiry": "42720h"
+    },
+    "hosts": [
+        "localhost",
+        "127.0.0.1"
+    ]
+}

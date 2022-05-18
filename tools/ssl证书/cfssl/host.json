@@ -1,0 +1,21 @@
+{
+    "CN": "www.peer.com",
+    "hosts": [
+        "localhost",
+        "127.0.0.1",
+        "www.peer.com"
+    ],
+    "key": {
+        "algo": "rsa",
+        "size": 2048
+    },
+    "names": [
+        {
+            "C": "CN",
+            "L": "chengdu",
+            "O": "200",
+            "OU": "cache server",
+            "ST": "sichuan"
+        }
+    ]
+}
