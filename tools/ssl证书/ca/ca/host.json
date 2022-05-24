@@ -1,0 +1,21 @@
+{
+  "CN": "turbo",
+  "hosts": [
+    "turbo",
+    "localhost",
+    "127.0.0.1"
+  ],
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+  {
+    "C": "CN",
+    "L": "chengdu",
+    "O": "200",
+    "OU": "cache server",
+    "ST": "sichuan"
+  }
+  ]
+}

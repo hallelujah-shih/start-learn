@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  server:
+    image: "openresty/openresty:bionic"
+    volumes:
+      - "./server/:/usr/local/openresty/nginx/conf/"
+    privileged: true
+
+  myupstream:
+    image: "openresty/openresty:bionic"
+    volumes:
+      - "./upstream/:/usr/local/openresty/nginx/conf/"
