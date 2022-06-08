@@ -32,7 +32,18 @@
     打开debian/rules，并在common_configure_args下面增加选项--with-dtrace，保存并执行如下命令
     debuild -us -uc
 
+    ex: iptables-1.6.1支持ebpf的object pinned
+        apt build-dep iptables
+        apt source iptables
+        
+        cd iptables-1.6.1
+        vim debian/rules:
+            override_dh_auto_build:
+                make CFLAGS="-g -O2 -include /usr/include/linux/unistd.h"
 
+        # 重新编译
+        debuild -us -uc
+        cp extensions/libxt_bpf.so /usr/lib/x86_64-linux-gnu/xtables/libxt_bpf.so
 
     安装
     dpkg -i ../*.deb
