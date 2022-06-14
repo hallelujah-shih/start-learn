@@ -15,6 +15,7 @@ emailAddress = sh19871122@gmail.com
 
 [ myexts ]
 basicConstraints=critical,CA:FALSE
-keyUsage=digitalSignature
-subjectKeyIdentifier=hash
-authorityKeyIdentifier=keyid
+subjectKeyIdentifier = hash
+keyUsage=critical, nonRepudiation, digitalSignature, keyEncipherment, keyAgreement
+subjectAltName = IP:127.0.0.1, DNS:hello, DNS:world
+authorityKeyIdentifier = keyid:always, issuer:always
