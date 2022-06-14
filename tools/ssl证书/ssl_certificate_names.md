@@ -185,3 +185,4 @@ CSR中包含的信息将包含在您的证书中，如CN、所有者详细信息
 * [Creating Self-Signed Certificates and Keys with OpenSSL](https://mariadb.com/docs/security/data-in-transit-encryption/create-self-signed-certificates-keys-openssl/)
 * [How to setup your own CA with OpenSSL](https://gist.github.com/Soarez/9688998)
 * [x509v3 config](https://www.openssl.org/docs/man1.0.2/man5/x509v3_config.html)
+* [x509 extensions](https://www.golinuxcloud.com/add-x509-extensions-to-certificate-openssl/)
