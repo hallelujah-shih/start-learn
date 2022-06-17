@@ -175,6 +175,8 @@ endif
 
 " 不用vim-go的template
 let g:go_template_autocreate = 0
+let g:ycm_use_clangd = 1
+let g:ycm_clangd_binary_path = 'clangd'
 
 " solarized设置
 "syntax enable
