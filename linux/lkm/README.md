@@ -10,7 +10,10 @@ sudo apt-get install vim libncurses5-dev gcc make git exuberant-ctags libssl-dev
 
 make oldconfig
 make -j8
-sudo make modules_install install
+sudo make INSTALL_MOD_STRIP=1 modules_install install
+
+sudo update-initramfs -c -k all
+sudo update-grub
 ```
 
 ### 签名
