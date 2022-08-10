@@ -71,9 +71,18 @@ client_random
 http://security.stackexchange.com/questions/80158/extract-pre-master-keys-from-an-openssl-application
 ```
 
+## 批量分析加密数据
+```
+pcapng格式的dsb块可以解决需要用wireshark去查看数据包的问题
+editcap --inject-secrets tls,keys.txt in.pcap out-dsb.pcapng
+tshark -r out-dsb.pcapng
+或者用pyshark等手动写分析工具
+```
+
 ## REFERENCE
 1. [如何通过wireshark查看HTTPS、HTTP/2网络包](http://joji.me/zh-cn/blog/walkthrough-decrypt-ssl-tls-traffic-https-and-http2-in-wireshark)
 2. [wireshark wiki ssl](https://wiki.wireshark.org/SSL)
 3. [how to capture and decode h2 traffic with wireshark](https://vanwilgenburg.wordpress.com/2015/11/22/how-to-capture-and-decode-http2-traffic-with-wireshark/)
 4. [debugging https or ssl connections to a third party](http://news.gtmtech.co.uk/blog/2013/01/25/debugging-https-or-ssl-connections-to-a-third-party/)
 5. [NSS Key Log format](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/Key_Log_Format)
+6. [using-the-pre-master-secret](https://wiki.wireshark.org/TLS#using-the-pre-master-secret)
