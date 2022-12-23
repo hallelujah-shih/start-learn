@@ -16,10 +16,14 @@
             "defines": [
                 "__GNUC__",
                 "__KERNEL__",
-                "MODULE"
+                "MODULE",
+                "CC_USING_FENTRY"
             ],
             "forcedInclude": [
-                "${KDIR}/include/generated/autoconf.h"
+                "${KDIR}/include/generated/autoconf.h",
+                "${KDIR/include/linux/compiler-version.h",
+                "${KDIR/include/linux/kconfig.h",
+                "${KDIR/include/linux/compiler_types.h"
             ],
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c89",
