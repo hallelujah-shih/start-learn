@@ -6,7 +6,7 @@
 ```
 设置全局解析地址为： 127.0.0.1:5553
 编辑：/etc/systemd/resolved.conf
-DNS=127.0.0.1:5553
+DNS=127.0.0.1:5553 [::1]:5553
 
 sudo systemctl restart systemd-resolved.service 
 ```
@@ -17,8 +17,12 @@ sudo systemctl restart systemd-resolved.service
 [ipv4]
 ignore-auto-dns=true
 
+[ipv6]
+ignore-auto-dns=true
+
 或者 nmcli c e id
 > set ipv4.ignore-auto-dns=yes
+> set ipv6.ignore-auto-dns=yes
 ```
 
 ## 查看
