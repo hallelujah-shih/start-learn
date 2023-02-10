@@ -87,6 +87,37 @@ Docker 挂载数据卷的默认权限是读写，用户也可以通过 :ro 指�
 使用export-import方式处理的镜像会丢失所有历史
 ```
 
+## Dockerfile一些命令介绍
+```
+一些指令介绍
+```
+
+### ADD和COPY
+```
+
+```
+
+### ENTRYPOINT和CMD
+```
+都是在执行一条命令。在绝大多数情况下, 你只要在这2者之间选择一个调用就可以。 但他们有更高级的应用, CMD和ENTRYPOINT组合起来使用, 完成更加丰富的功能。
+
+CMD可以直接被docker run跟上运行指令所覆盖
+ENTRYPOINT的覆盖需要加上--entrypoint
+
+所以，如果您希望执行一个具体程序，且不希望被执行docker run所随意覆盖，建议使用ENTRYPOINT
+使用用例为test/print_args
+cd test/print_args
+docker build . -t print
+
+"docker run print" 的输出如下：
+2023/02/09 03:08:30 [/print -from-docker-file-cmd]
+
+"docker run print -from-docker-run-cmd-replace" 的输出如下：
+2023/02/09 03:09:55 [/print -from-docker-run-cmd-replace]
+
+可以结合文档与测试得出，当组合时CMD是附在ENTRYPOINT后的。
+```
+
 ## reference
 [docker core设置](http://ephrain.pixnet.net/blog/post/61630024-%5Bdocker%5D-%E5%9C%A8-container-%E8%A3%A1%E8%A8%AD%E5%AE%9A-core-dump-%E7%9A%84%E6%AA%94%E6%A1%88%E5%90%8D%E7%A8%B1)
 [docker practice](https://www.gitbook.com/book/yeasy/docker_practice/details)

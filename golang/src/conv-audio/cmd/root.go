@@ -10,6 +10,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"strconv"
 	"strings"
 
 	"github.com/sourcegraph/conc/pool"
@@ -28,6 +29,20 @@ func repairName(oldName string) string {
 	bname := filepath.Base(oldName)
 	ext := filepath.Ext(bname)
 	tname := strings.TrimSpace(fileNameWithoutExtTrimSuffix(bname))
+	fields := strings.Split(tname, ".")
+	var nfields []string
+	for _, item := range fields {
+		item := strings.TrimSpace(item)
+		if item != "" {
+			nfields = append(nfields, item)
+		}
+	}
+	if len(nfields) > 1 {
+		_, err := strconv.Atoi(nfields[0])
+		if err == nil {
+			tname = strings.Join(nfields[1:], ".")
+		}
+	}
 
 	invalidChars := []byte{'\\', '/', ':', '*', '?', '"', '<', '>', '|'}
 	for _, c := range invalidChars {
@@ -46,7 +61,10 @@ func doRepaireFileName(fname string) {
 	dname := filepath.Dir(fname)
 	nname := filepath.Join(dname, repairName(bname))
 	if bname != nname {
-		os.Rename(fname, nname)
+		if err := os.Rename(fname, nname); err != nil {
+			os.Remove(nname)
+			os.Rename(fname, nname)
+		}
 	}
 }
 
