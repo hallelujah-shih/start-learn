@@ -1,0 +1,15 @@
+version: "3"
+services:
+  ngx_dbg:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ulimits:
+      core: -1
+    privileged: true
+    volumes:
+      - ./config:/etc/nginx
+    ports:
+      - "8080:80"
+      - "8088:888"
+      - "8443:443"

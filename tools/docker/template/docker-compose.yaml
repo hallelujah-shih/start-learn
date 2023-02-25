@@ -1,0 +1,27 @@
+version: "3"
+services:
+  s1:
+    build:
+      context: ./s1
+      dockerfile: Dockerfile
+    volumes:
+      - ./ssl:/etc/nginx/ssl
+    ports:
+      - "8080:80"
+      - "8443:443"
+    depends_on:
+      - s2
+      - s3
+
+  s2:
+    build:
+      context: ./s2
+      dockerfile: Dockerfile
+    volumes:
+      - ./ssl:/ssl
+
+  s3:
+    build:
+      context: ./s3
+      dockerfile: Dockerfile
+    command: [ "bash", "-c", "multi cmds" ]

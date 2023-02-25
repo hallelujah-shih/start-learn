@@ -1,0 +1,19 @@
+FROM golang:alpine as builder
+
+ENV GOPROXY=https://goproxy.cn,direct
+
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+RUN apk update && apk --no-cache add pkgconfig libc-dev zeromq-dev gcc
+
+WORKDIR /MY_PATH
+COPY . .
+RUN go build
+
+FROM alpine
+
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+RUN apk update && apk --no-cache add libzmq
+
+COPY --from=builder /MY_PATH/file_or_dir /dst
+ENTRYPOINT [ "/dst/exe" ]
+CMD [ "run", "-c", "cfg.yaml"]
