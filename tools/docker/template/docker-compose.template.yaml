@@ -9,6 +9,9 @@ services:
     ports:
       - "8080:80"
       - "8443:443"
+    privileged: true
+    ulimits:
+      core: -1
     depends_on:
       - s2
       - s3
