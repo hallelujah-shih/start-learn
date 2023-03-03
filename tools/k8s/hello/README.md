@@ -4,9 +4,9 @@
 ```
 
 ## 编写helm chart
-### 不带ingress
+### NodePort
 ```
-helm create hello-app
+helm create hello-nodeport
 
 修改 Chart.yaml:
     appVersion 为: v1
@@ -18,12 +18,12 @@ helm create hello-app
         ports下面将服务暴露containerPort: 8080
 ```
 
-### 带ingress
+### ClusterIP + ingress
 ```
 INGRESS_IP=`minikube ip`
 此处假设为: 192.168.49.2
 
-helm create hello-app-ingress
+helm create hello-clusterip
 
 修改 Chart.yaml:
     name: hello-app
@@ -40,6 +40,30 @@ helm create hello-app-ingress
 
 修改 templates/service.yaml:
     spec.ports.port.targetPort 为 8080
+```
+
+### LoadBalancer
+```
+helm create hello-loadbalancer
+
+修改 Chart.yaml:
+    name: hello-app
+    appVersion 为: v1
+
+修改 values.yaml:
+    image.repository 为: hello-app
+    ingress.enabled 为: true
+    ingress.hosts.host 为: hello.10.8.160.102.nip.io
+    service.type 为 LoadBalancer
+
+修改 templates/deployment.yaml:
+    spec.template.spec.containers
+        ports下面将服务暴露containerPort: 8080
+
+修改 templates/service.yaml:
+    spec.ports.port.targetPort 为 8080
+
+* 为了全程模拟
 ```
 
 ## 构建docker

@@ -50,7 +50,7 @@ minikube addons enable dashboard
 minikube addons enable metrics-server
 ```
 
-### 开发、部署简单一条龙(不带ingress)
+### 开发、部署简单一条龙(NodePort)
 ```
 # dashboard
 minikube dashboard --url
@@ -75,7 +75,7 @@ kubectl get deployments
     minikube service hello-app --url
 ```
 
-### 开发、部署简单一条龙(ingress)
+### 开发、部署简单一条龙(ingress & ClusterIP)
 ```
 # 创建服务
 参见 hello/README.md
@@ -91,6 +91,52 @@ kubectl get deployments
 
 # 访问
 curl 192.168.49.2.nip.io
+```
+
+### 模拟LoadBalancer
+```
+1. 安装插件
+minikube addons enable metallb
+
+2. 创建一个ConfigMap来配置MetalLB：
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: metallb-system
+  name: config
+data:
+  config: |
+    address-pools:
+    - name: my-ip-space
+      protocol: layer2
+      addresses:
+     http - 192.168.49.100-192.168.49.254
+或通过命令行配置
+minikube addons configure metallb
+此处我配置为 192.168.49.100-192.168.49.254
+# 注意，国内拉取镜像可能有问题
+kubectl get pods -n metallb-system
+# 手动处理镜像(ImagePullBackOff)
+a. controller处理
+  查看: kubectl describe -n metallb-system pods controller-5cd84968b6-8sxj6 
+  根据信息： docker.io/metallb/controller:v0.9.6
+  minikube ssh
+    docker pull metallb/controller:v0.9.6
+    docker tag metallb/controller:v0.9.6 docker.io/metallb/controller:v0.9.6
+b. speaker处理
+  查看： kubectl describe -n metallb-system pods speaker-78gp8
+  根据信息： docker.io/metallb/speaker:v0.9.6
+  minikube ssh
+    docker pull metallb/speaker:v0.9.6
+    docker tag metallb/speaker:v0.9.6 docker.io/metallb/speaker:v0.9.6
+
+3. 在服务的配置文件中，将服务类型设置为LoadBalancer:
+  参见hello/README.md
+  kubectl describe svc hello-app，假设IP为 192.168.49.100
+  sudo iptables -t nat -A PREROUTING -p tcp -m tcp --dport 3000 -j DNAT --to-destination 192.168.49.100:80
+  curl hello.10.8.160.102.nip.io:3000
+
+在这个例子中，MetalLB插件会将服务类型为LoadBalancer的NodePort映射到你指定的IP地址范围中的一个IP地址，并将请求转发到服务Pod的NodePort上。你可以使用 kubectl get services 命令来查看服务的IP地址。
 ```
 
 ### 排查问题
