@@ -199,6 +199,26 @@ helm upgrade --install gitlab . \
   --set global.hosts.domain=$(minikube ip).nip.io \
   --set global.hosts.externalIP=$(minikube ip) \
   -f https://gitlab.com/gitlab-org/charts/gitlab/raw/master/examples/values-minikube-minimum.yaml
+
+# root账户密码
+kubectl get secret gitlab-gitlab-initial-root-password -ojsonpath='{.data.password}' | base64 --decode ; echo
+```
+
+## gitlab-runner部署
+```
+helm repo add gitlab https://charts.gitlab.io
+
+helm repo update gitlab
+
+helm search repo -l gitlab/gitlab-runner
+
+# helm install --namespace <NAMESPACE> gitlab-runner -f <CONFIG_VALUES_FILE> gitlab/gitlab-runner
+# curl -fL https://gitlab.com/gitlab-org/charts/gitlab-runner/-/raw/main/values.yaml -o gitlab-runner-value.yaml
+  1. gitlabUrl: https://gitlab.192.168.49.2.nip.io/
+  2. runnerRegistrationToken: "在gitlab中生成id"
+  3. 改了ubuntu版本为18.04
+helm install gitlab-runner -f gitlab-runner-value.yaml gitlab/gitlab-runner
+根据自己的需要修改配置
 ```
 
 ## REF
