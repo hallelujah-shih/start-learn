@@ -75,6 +75,10 @@ docker build . -t hello-app:v1
 
 ## 方法2
 docker build . -t hello-app:v1
+docker save hello-app:v1 | (eval $(minikube docker-env) && docker load)
+
+## 方法3
+docker build . -t hello-app:v1
 docker save hello-app:v1 -o hello-app.tar
 minikube cp hello-app.tar /tmp/hello-app.tar
 minikube ssh "docker load -i /tmp/hello-app.tar"
