@@ -45,9 +45,10 @@ minikube ssh "docker info"
 
 ### 开启常用插件
 ```
-minikube addons enable ingress
-minikube addons enable dashboard
 minikube addons enable metrics-server
+minikube addons enable dashboard
+minikube addons enable ingress
+minikube addons enable registry
 ```
 
 ### 开发、部署简单一条龙(NodePort)
@@ -174,34 +175,42 @@ kubectl describe service hello-app
 kubectl describe pod hello-app
 ```
 
+## 部署cert-manager
+```
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
+helm upgrade --install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager --create-namespace \
+  --version v1.11.0
+```
+
 ## 部署gitlab
 
-### 克隆gitlab chart repo
+### 克隆gitlab chart repo & 部署
 ```
 git clone https://gitlab.com/gitlab-org/charts/gitlab.git
 cd gitlab
-```
-
-### 部署
-```
-# 使用推荐设置部署
 helm dependency update
+
+# 使用推荐设置部署
 helm upgrade --install gitlab . \
   --timeout 600s \
+  --namespace gitlab --create-namespace \
+  -f https://gitlab.com/gitlab-org/charts/gitlab/raw/master/examples/values-minikube.yaml \
   --set global.hosts.domain=$(minikube ip).nip.io \
-  --set global.hosts.externalIP=$(minikube ip) \
-  -f https://gitlab.com/gitlab-org/charts/gitlab/raw/master/examples/values-minikube.yaml
+  --set global.hosts.externalIP=$(minikube ip)
 
 # 使用最小设置部署
-helm dependency update
 helm upgrade --install gitlab . \
   --timeout 600s \
+  --namespace gitlab --create-namespace \
+  -f https://gitlab.com/gitlab-org/charts/gitlab/raw/master/examples/values-minikube-minimum.yaml \
   --set global.hosts.domain=$(minikube ip).nip.io \
-  --set global.hosts.externalIP=$(minikube ip) \
-  -f https://gitlab.com/gitlab-org/charts/gitlab/raw/master/examples/values-minikube-minimum.yaml
+  --set global.hosts.externalIP=$(minikube ip)
 
 # root账户密码
-kubectl get secret gitlab-gitlab-initial-root-password -ojsonpath='{.data.password}' | base64 --decode ; echo
+kubectl get secret -n gitlab gitlab-gitlab-initial-root-password -ojsonpath='{.data.password}' | base64 --decode ; echo
 ```
 
 ## gitlab-runner部署
@@ -226,3 +235,4 @@ helm install gitlab-runner -f gitlab-runner-value.yaml gitlab/gitlab-runner
 * [Setup gitlab on minikube using helm3](https://gist.github.com/nirbhabbarat/8fe32ccaaacc782272c9f49a753e97b4)
 * [Developing for Kubernetes with minikube](https://docs.gitlab.com/charts/development/minikube/)
 * [nip.io](https://nip.io/)
+* [gitlab-components](https://rtfm.co.ua/en/gitlab-components-architecture-infrastructure-and-launching-from-the-helm-chart-in-minikube/)
