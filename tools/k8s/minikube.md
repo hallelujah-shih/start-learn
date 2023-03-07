@@ -30,7 +30,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 ## start
 ```
 # 初始化
-minikube start --image-mirror-country='cn' --kubernetes-version=1.23.0 --memory 10240
+minikube start --insecure-registry "10.0.0.0/24" --image-mirror-country='cn' --kubernetes-version=1.23.0 --memory 10240
 
 # 替换镜像
 sed -i 's|.*RegistryMirror.*|"RegistryMirror": ["https://docker.mirrors.ustc.edu.cn/", "https://registry.cn-hangzhou.aliyuncs.com", "http://hub-mirror.c.163.com", "https://registry.docker-cn.com"],|g' $HOME/.minikube/machines/minikube/config.json
@@ -185,29 +185,64 @@ helm upgrade --install \
   --version v1.11.0
 ```
 
+## 部署CoreDNS
+```
+helm repo add coredns https://coredns.github.io/helm
+helm --namespace=kube-system install coredns coredns/coredns
+
+# https://github.com/coredns/helm
+```
+
 ## 部署gitlab
 
 ### 克隆gitlab chart repo & 部署
 ```
-git clone https://gitlab.com/gitlab-org/charts/gitlab.git
-cd gitlab
-helm dependency update
+helm repo add gitlab https://charts.gitlab.io/
+helm repo update
 
 # 使用推荐设置部署
-helm upgrade --install gitlab . \
+helm upgrade --install gitlab gitlab/gitlab \
   --timeout 600s \
   --namespace gitlab --create-namespace \
   -f https://gitlab.com/gitlab-org/charts/gitlab/raw/master/examples/values-minikube.yaml \
   --set global.hosts.domain=$(minikube ip).nip.io \
-  --set global.hosts.externalIP=$(minikube ip)
+  --set global.hosts.externalIP=$(minikube ip) \
+  --set certmanager.install=false \
+  --set global.ingress.configureCertmanager=false \
+  --set gitlab-runner.install=false \
+  --set shared-secrets.enabled=true \
+  --set global.ingress.tls.enabled=true \
+  --set gitlab.webservice.ingress.tls.secretName=gitlab-webservice-tls \
+  --set registry.ingress.tls.secretName=gitlab-registry-tls \
+  --set gitlab.kas.ingress.tls.secretName=gitlab-kas-tls \
+  --set minio.ingress.tls.secretName=gitlab-minio-tls \
+  --set global.pages.enabled=true \
+  --set gitlab.gitlab-pages.ingress.tls.secretName=gitlab-pages-tls \
+  --set postgresql.image.tag=13.6.0
+
+
+helm upgrade --install gitlab gitlab/gitlab \
+  --timeout 600s \
+  --namespace gitlab --create-namespace \
+  -f https://gitlab.com/gitlab-org/charts/gitlab/raw/master/examples/values-minikube.yaml \
+  --set global.hosts.domain=$(minikube ip).nip.io \
+  --set global.hosts.externalIP=$(minikube ip) \
+  --set shared-secrets.enabled=true \
+  --set certmanager.install=false \
+  --set global.ingress.configureCertmanager=false \
+  --set gitlab-runner.install=false \
+  --set global.pages.enabled=true \
+  --set gitlab.gitlab-pages.ingress.tls.secretName=gitlab-pages-tls \
+  --set postgresql.image.tag=13.6.0
 
 # 使用最小设置部署
-helm upgrade --install gitlab . \
+helm upgrade --install gitlab gitlab/gitlab \
   --timeout 600s \
   --namespace gitlab --create-namespace \
   -f https://gitlab.com/gitlab-org/charts/gitlab/raw/master/examples/values-minikube-minimum.yaml \
   --set global.hosts.domain=$(minikube ip).nip.io \
-  --set global.hosts.externalIP=$(minikube ip)
+  --set global.hosts.externalIP=$(minikube ip) \
+  --set postgresql.image.tag=13.6.0
 
 # root账户密码
 kubectl get secret -n gitlab gitlab-gitlab-initial-root-password -ojsonpath='{.data.password}' | base64 --decode ; echo
@@ -219,15 +254,14 @@ helm repo add gitlab https://charts.gitlab.io
 
 helm repo update gitlab
 
-helm search repo -l gitlab/gitlab-runner
-
-# helm install --namespace <NAMESPACE> gitlab-runner -f <CONFIG_VALUES_FILE> gitlab/gitlab-runner
-# curl -fL https://gitlab.com/gitlab-org/charts/gitlab-runner/-/raw/main/values.yaml -o gitlab-runner-value.yaml
-  1. gitlabUrl: https://gitlab.192.168.49.2.nip.io/
-  2. runnerRegistrationToken: "在gitlab中生成id"
-  3. 改了ubuntu版本为18.04
-helm install gitlab-runner -f gitlab-runner-value.yaml gitlab/gitlab-runner
-根据自己的需要修改配置
+# https://docs.gitlab.com/runner/install/kubernetes.html
+helm upgrade --install gitlab-runner -n gitlab --create-namespace \
+  gitlab/gitlab-runner \
+  -f https://gitlab.com/gitlab-org/charts/gitlab-runner/-/raw/main/values.yaml \
+  --set gitlabUrl=https://gitlab.$(minikube ip).nip.io \
+  --set runners.image="ubuntu:18.04" \
+  --set certsSecretName="gitlab-wildcard-tls-chain" \
+  --set runnerRegistrationToken="GR1348941zbquNxirsYvxsSxCqFjB"
 ```
 
 ## REF
