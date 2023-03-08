@@ -317,8 +317,6 @@ runners:
   # runner configuration: https://docs.gitlab.com/runner/configuration/advanced-configuration.html
   config: |
     [[runners]]
-      name = "my first runner"
-      executor = "kubernetes"
       [runners.kubernetes]
         privileged = true
         namespace = "{{.Release.Namespace}}"
@@ -328,7 +326,7 @@ runners:
     - GIT_SSL_NO_VERIFY=true
   ## Which executor should be used
   ##
-  # executor: kubernetes
+  executor: kubernetes
 
   ## Default container image to use for builds when none is specified
   ##
@@ -365,7 +363,7 @@ runners:
 
   ## Specify the name for the runner.
   ##
-  # name: ""
+  name: "my first runner"
 
   ## Specify the maximum timeout (in seconds) that will be set for job when using this Runner
   ##
@@ -392,7 +390,7 @@ runners:
   ## ref: https://docs.gitlab.com/runner/executors/kubernetes.html#using-dockerdind
   ##
   ## DEPRECATED: See https://docs.gitlab.com/runner/install/kubernetes.html#additional-configuration
-  # privileged: false
+  privileged: true
 
   ## The name of the secret containing runner-token and runner-registration-token
   # secret: gitlab-runner
@@ -400,7 +398,7 @@ runners:
   ## Namespace to run Kubernetes jobs in (defaults to the same namespace of this release)
   ##
   ## DEPRECATED: See https://docs.gitlab.com/runner/install/kubernetes.html#additional-configuration
-  # namespace:
+  namespace: gitlab
 
   ## The amount of time, in seconds, that needs to pass before the runner will
   ## timeout attempting to connect to the container it has just created.
