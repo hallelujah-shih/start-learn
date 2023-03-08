@@ -205,6 +205,7 @@ helm upgrade --install gitlab gitlab/gitlab \
   --timeout 600s \
   --namespace gitlab --create-namespace \
   -f https://gitlab.com/gitlab-org/charts/gitlab/raw/master/examples/values-minikube.yaml \
+  --set global.edition=ce \
   --set global.hosts.domain=$(minikube ip).nip.io \
   --set global.hosts.externalIP=$(minikube ip) \
   --set shared-secrets.enabled=true \

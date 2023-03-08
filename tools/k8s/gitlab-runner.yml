@@ -317,10 +317,12 @@ runners:
   # runner configuration: https://docs.gitlab.com/runner/configuration/advanced-configuration.html
   config: |
     [[runners]]
+      name = "my first runner"
+      executor = "kubernetes"
       [runners.kubernetes]
         privileged = true
         namespace = gitlab
-        image = "ubuntu:18.04"
+        image = "ubuntu:20.04"
 
   environment:
     - GIT_SSL_NO_VERIFY=true
