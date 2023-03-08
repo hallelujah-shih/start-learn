@@ -188,7 +188,7 @@ helm upgrade --install \
 ## 部署CoreDNS
 ```
 helm repo add coredns https://coredns.github.io/helm
-helm --namespace=kube-system install coredns coredns/coredns
+helm --namespace=kube-system upgrade --install coredns coredns/coredns
 
 # https://github.com/coredns/helm
 ```
@@ -201,26 +201,6 @@ helm repo add gitlab https://charts.gitlab.io/
 helm repo update
 
 # 使用推荐设置部署
-helm upgrade --install gitlab gitlab/gitlab \
-  --timeout 600s \
-  --namespace gitlab --create-namespace \
-  -f https://gitlab.com/gitlab-org/charts/gitlab/raw/master/examples/values-minikube.yaml \
-  --set global.hosts.domain=$(minikube ip).nip.io \
-  --set global.hosts.externalIP=$(minikube ip) \
-  --set certmanager.install=false \
-  --set global.ingress.configureCertmanager=false \
-  --set gitlab-runner.install=false \
-  --set shared-secrets.enabled=true \
-  --set global.ingress.tls.enabled=true \
-  --set gitlab.webservice.ingress.tls.secretName=gitlab-webservice-tls \
-  --set registry.ingress.tls.secretName=gitlab-registry-tls \
-  --set gitlab.kas.ingress.tls.secretName=gitlab-kas-tls \
-  --set minio.ingress.tls.secretName=gitlab-minio-tls \
-  --set global.pages.enabled=true \
-  --set gitlab.gitlab-pages.ingress.tls.secretName=gitlab-pages-tls \
-  --set postgresql.image.tag=13.6.0
-
-
 helm upgrade --install gitlab gitlab/gitlab \
   --timeout 600s \
   --namespace gitlab --create-namespace \
@@ -251,17 +231,39 @@ kubectl get secret -n gitlab gitlab-gitlab-initial-root-password -ojsonpath='{.d
 ## gitlab-runner部署
 ```
 helm repo add gitlab https://charts.gitlab.io
-
 helm repo update gitlab
 
+# 找到certsSecretName，此处为gitlab-wildcard-tls-chain
+kubectl -n gitlab get secrets
+
 # https://docs.gitlab.com/runner/install/kubernetes.html
+# https://docs.gitlab.com/runner/configuration/advanced-configuration.html
 helm upgrade --install gitlab-runner -n gitlab --create-namespace \
   gitlab/gitlab-runner \
   -f https://gitlab.com/gitlab-org/charts/gitlab-runner/-/raw/main/values.yaml \
+  --set runners.name="dev_group_runner" \
   --set gitlabUrl=https://gitlab.$(minikube ip).nip.io \
   --set runners.image="ubuntu:18.04" \
+  --set runners.privileged=true \
   --set certsSecretName="gitlab-wildcard-tls-chain" \
-  --set runnerRegistrationToken="GR1348941zbquNxirsYvxsSxCqFjB"
+  --set rbac.create=true \
+  --set runners.token="GR13489419tyj7LbrvEPN21x8JGua" \
+  --set runners.kubernetes.privileged=true \
+  --set runners.environment[0].name=GIT_SSL_NO_VERIFY,runners.environment[0].value=true
+
+
+helm upgrade --install gitlab-runner -n gitlab --create-namespace \
+  gitlab/gitlab-runner \
+  -f ./gitlab-runner.yml \
+  --set gitlabUrl=https://gitlab.$(minikube ip).nip.io \
+  --set certsSecretName="gitlab-wildcard-tls-chain" \
+  --set rbac.create=true \
+  --set runners.name="shih-runner" \
+  --set runners.privileged=true \
+  --set runners.token="GR1348941Cr-yHY6Y1G3nHwMv7DGh"
+
+# 查看值
+helm -n gitlab get values gitlab-runner
 ```
 
 ## REF
