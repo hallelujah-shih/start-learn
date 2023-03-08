@@ -258,8 +258,6 @@ helm upgrade --install gitlab-runner -n gitlab --create-namespace \
   -f ./gitlab-runner.yml \
   --set gitlabUrl=https://gitlab.$(minikube ip).nip.io \
   --set certsSecretName="gitlab-wildcard-tls-chain" \
-  --set rbac.create=true \
-  --set runners.name="shih-runner" \
   --set runners.privileged=true \
   --set runners.token="GR1348941Cr-yHY6Y1G3nHwMv7DGh"
 
