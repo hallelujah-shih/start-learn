@@ -6,6 +6,9 @@ RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.l
 RUN sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y build-essential gdb curl libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl-dev libgd-dev libxml2 libxml2-dev uuid-dev lua-cjson-dev luarocks
+
+# RUN git config --global --add safe.directory '*'
+
 COPY . .
 
 RUN bash ./auto_build.sh

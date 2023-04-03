@@ -4,6 +4,8 @@ RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.l
 RUN sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 RUN apt-get update && apt-get install -y curl git pkg-config libzmq3-dev
 
+RUN git config --global --add safe.directory '*'
+
 RUN curl -fL https://studygolang.com/dl/golang/go1.19.6.linux-amd64.tar.gz | tar -xzf - -C /usr/local
 ENV PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ENV GOPROXY="https://goproxy.cn,direct"
