@@ -1,8 +1,13 @@
-FROM ubuntu:18.04 as builder
+FROM ubuntu:18.04
+
+ENV TZ "Asia/Shanghai"
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
 
 RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list
 RUN sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
-RUN apt-get update && apt-get --no-install-recommends install -y curl git pkg-config libzmq3-dev
+
+RUN apt-get update && apt-get --no-install-recommends install -y build-essential curl git pkg-config libzmq3-dev
 
 RUN git config --global --add safe.directory '*'
 
