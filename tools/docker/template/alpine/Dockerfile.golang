@@ -7,7 +7,11 @@ RUN apk update && apk --no-cache add pkgconfig libc-dev zeromq-dev gcc
 
 # RUN git config --global --add safe.directory '*'
 
-WORKDIR /MY_PATH
+# CI
+WORKDIR /fake-proj
+# COPY go.mod .
+# RUN go mod download
+
 COPY . .
 RUN go build
 

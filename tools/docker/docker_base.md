@@ -118,6 +118,17 @@ docker build . -t print
 可以结合文档与测试得出，当组合时CMD是附在ENTRYPOINT后的。
 ```
 
+## 杂项操作
+
+### 停止自启动的镜像
+```
+查看正在运行容器的状态
+docker inspect --format "{{ .HostConfig.RestartPolicy.Name }}" <CONTAINER_ID_or_NAME>
+
+更新容器的自启动状态
+docker update --restart=no <CONTAINER_ID_or_NAME>
+```
+
 ## reference
 [docker core设置](http://ephrain.pixnet.net/blog/post/61630024-%5Bdocker%5D-%E5%9C%A8-container-%E8%A3%A1%E8%A8%AD%E5%AE%9A-core-dump-%E7%9A%84%E6%AA%94%E6%A1%88%E5%90%8D%E7%A8%B1)
 [docker practice](https://www.gitbook.com/book/yeasy/docker_practice/details)
