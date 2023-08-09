@@ -1,15 +1,19 @@
-# Stage 1 - Install build dependencies
 FROM python:3.7-alpine AS builder
-WORKDIR /app
-RUN python -m venv .venv && .venv/bin/pip install --no-cache-dir -U pip setuptools --index-url=https://mirrors.ustc.edu.cn/pypi/web/simple
-COPY requirements.txt .
-RUN .venv/bin/pip install --no-cache-dir -r requirements.txt --index-url=https://mirrors.ustc.edu.cn/pypi/web/simple && \
-    find /hello-app/.venv -type d -a -name test -o -name tests  -o -type f -a -name '*.pyc' -o -name '*.pyo' -exec rm -rf {} \;
 
-# Stage 2 - Copy only necessary files to the runner stage
-FROM python:3.7-alpine
 WORKDIR /app
-COPY --from=builder /app /app
+ENV PATH="/venv/bin:$PATH"
+
+RUN python -m venv /venv && /venv/bin/pip install --no-cache-dir -U pip setuptools --index-url=https://mirrors.ustc.edu.cn/pypi/web/simple
+# RUN apk update && apk --no-cache add gcc g++ musl-dev python3-dev libffi-dev openssl-dev
+COPY requirements.txt .
+RUN /venv/bin/pip install --no-cache-dir -r requirements.txt --index-url=https://mirrors.ustc.edu.cn/pypi/web/simple && \
+    find /venv -type d -a -name test -o -name tests  -o -type f -a -name '*.pyc' -o -name '*.pyo' -exec rm -rf {} \;
+
+FROM python:3.7-alpine
+
+WORKDIR /app
+ENV PATH="/venv/bin:$PATH"
+
+COPY --from=builder /venv /venv
 COPY app.py .
-ENV PATH="/app/.venv/bin:$PATH"
 CMD ["python", "app.py"]
