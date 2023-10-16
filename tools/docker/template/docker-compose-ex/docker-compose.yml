@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  redis:
+    image: redis:6.2
+    ports:
+      - "127.0.0.1:6379:6379"
+    command: redis-server --save 20 1 --loglevel warning
+    environment:
+      TZ: "$TZ"
+
+  app-host: # recv msg and write db
+    build:
+      context: ./web-backend
+      dockerfile: Dockerfile
+    network_mode: "host"
+    extra_hosts:
+      - redis:127.0.0.1
+    depends_on:
+      - redis
+
+  app-native: # fetch msg from db, and fetch app-host status
+    build:
+      context: ./web-frontend
+      dockerfile: Dockerfile
+    depends_on:
+      - redis
+      - app-host
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

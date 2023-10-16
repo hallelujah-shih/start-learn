@@ -1,0 +1,38 @@
+FROM ubuntu:18.04 as builder
+
+ENV TZ "Asia/Shanghai"
+ENV LANG en_US.UTF-8
+
+RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list
+RUN sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+
+RUN apt-get update && apt-get --no-install-recommends install -y \
+    curl git pkg-config build-essential ca-certificates \
+    python-dev python-pip python-virtualenv python-setuptools
+
+RUN git config --global --add safe.directory '*'
+
+RUN pip install -U pip setuptools virtualenv --index-url=https://mirrors.ustc.edu.cn/pypi/web/simple
+RUN virtualenv -p python2 /venv
+ENV PATH="/venv/bin:$PATH"
+
+COPY requirements /tmp/requirements.txt
+RUN /venv/bin/pip install -r /tmp/requirements.txt --index-url=https://mirrors.ustc.edu.cn/pypi/web/simple
+
+
+FROM ubuntu:18.04 as runner
+
+WORKDIR /fake-proj
+ENV PYTHONUNBUFFERED=1
+ENV PATH="/venv/bin:$PATH"
+
+RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list
+RUN sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+
+RUN apt-get update && apt-get --no-install-recommends install -y python && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /venv /venv
+COPY . . 
+
+CMD ["python", "fake-main.py"]
