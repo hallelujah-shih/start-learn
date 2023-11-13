@@ -1,0 +1,25 @@
+FROM python:3.7 as builder
+
+ENV PATH="/venv/bin:$PATH"
+RUN python -m venv /venv
+
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt --index-url=https://mirrors.ustc.edu.cn/pypi/web/simple
+
+
+FROM python:3.7-slim
+
+WORKDIR /myprod
+ENV TZ "Asia/Shanghai"
+ENV LANG en_US.UTF-8
+ENV PATH="/venv/bin:$PATH"
+
+COPY --from=builder /venv /venv
+
+COPY . .
+
+CMD [ "sh" ]
+
+# https://rodneyosodo.medium.com/minimizing-python-docker-images-cf99f4468d39
+# python:3.7包巨大，但是支持很多包
+# alpine有些包不支持
