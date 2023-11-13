@@ -29,7 +29,7 @@ let g:clang_format#auto_format=1
 function! BuildYCM(info)
     if a:info.status == 'installed' || a:info.force
         " 可以是--all，我这儿主要是C/C++/Python/Go
-        !./install.py --clang-completer --gocode-completer
+        !python3 ./install.py --clang-completer  --clangd-completer  --go-completer --system-libclang
     endif
 endfunction
 
