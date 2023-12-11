@@ -22,5 +22,10 @@ go tool pprof -http="127.0.0.1:8000" http://localhost:8088/debug/pprof/heap
 go tool pprof -http=127.0.0.1:8000 profile_name-heap.pb.gz
 ```
 
+## cpu
+```
+go tool pprof -http="127.0.0.1:8000" http://localhost:8088/debug/pprof/profile?seconds=30
+```
+
 ## ref
 * [Analyzing and improving memory usage in Go](https://medium.com/safetycultureengineering/analyzing-and-improving-memory-usage-in-go-46be8c3be0a8)
