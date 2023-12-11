@@ -17,8 +17,11 @@ RUN go build
 
 FROM alpine
 
+ENV TZ "Asia/Shanghai"
+ENV LANG en_US.UTF-8
+
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
-RUN apk update && apk --no-cache add libzmq
+RUN apk update && apk --no-cache add tzdata libzmq
 
 COPY --from=builder /MY_PATH/file_or_dir /dst
 ENTRYPOINT [ "/dst/exe" ]

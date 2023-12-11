@@ -1,11 +1,13 @@
 FROM ubuntu:18.04 as builder
 
 WORKDIR /nginx
+ENV TZ "Asia/Shanghai"
+ENV LC_ALL en_US.UTF-8
 
 RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list
 RUN sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 
-RUN apt-get update && apt-get install -y build-essential gdb curl libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl-dev libgd-dev libxml2 libxml2-dev uuid-dev lua-cjson-dev luarocks
+RUN apt-get update && apt-get install -y locales build-essential gdb curl libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl-dev libgd-dev libxml2 libxml2-dev uuid-dev lua-cjson-dev luarocks
 
 # RUN git config --global --add safe.directory '*'
 

@@ -13,6 +13,11 @@ FROM python:3.7-alpine
 
 WORKDIR /app
 ENV PATH="/venv/bin:$PATH"
+ENV TZ "Asia/Shanghai"
+ENV LANG en_US.UTF-8
+
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+RUN apk update && apk --no-cache add tzdata
 
 COPY --from=builder /venv /venv
 COPY app.py .
