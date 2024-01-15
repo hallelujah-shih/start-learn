@@ -6,11 +6,39 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 	"os"
+	"runtime"
 	"syscall"
 	"time"
 )
 
+func sender(out chan int) {
+	i := 0
+	for {
+		out <- i
+		i++
+	}
+}
+
+func reader(in chan int) {
+	builkSize := 10000
+	buf := make([]int, builkSize)
+	for {
+		curIndex := 0
+		for data := range in {
+			buf[curIndex] = data
+			curIndex++
+			if curIndex == builkSize {
+				break
+			}
+		}
+
+		//deal
+		time.Sleep(200 * time.Millisecond)
+	}
+}
+
 func main() {
+	runtime.SetBlockProfileRate(1000)
 	unixAddr := "/tmp/pprof-test.sock"
 
 	fileInfo, err := os.Stat(unixAddr)
@@ -33,6 +61,11 @@ func main() {
 	go func() {
 		log.Fatal(http.Serve(unixListener, nil))
 	}()
+
+	pipeBuf := make(chan int)
+	go sender(pipeBuf)
+
+	go reader(pipeBuf)
 
 	num := int64(0)
 	for {
