@@ -45,7 +45,6 @@ After=network.target cgconfigparser.service
 User=root
 Group=root
 Type=forking
-PidFile=/var/run/cgrulesengd.pid
 EnvironmentFile=-/etc/cgred.conf
 ExecStartPre=/usr/sbin/cgconfigparser -l /etc/cgconfig.conf
 ExecStart=/usr/sbin/cgrulesengd -s
