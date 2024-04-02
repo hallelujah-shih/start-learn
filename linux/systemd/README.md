@@ -154,6 +154,8 @@ systemctl start nginx.service
 
 示例3
 创建自己的slice
+# 查看systemd版本 systemctl --version 
+# 查看哪些选项可用 man 5 systemd.resource-control 
 sudo EDITOR=vim systemctl edit --force --full dns.slice
 
 [Unit]
