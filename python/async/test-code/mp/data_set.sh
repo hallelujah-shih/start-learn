@@ -1,0 +1,1 @@
+curl -fLO https://mattfowler.io/data/googlebooks-eng-all-1gram-20120701-a.gz
