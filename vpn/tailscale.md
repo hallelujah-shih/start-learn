@@ -51,6 +51,12 @@ echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p /etc/sysctl.conf
 sudo iptables -t mangle -A FORWARD -o tailscale0 -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
 
+iptables的操作可以固化到service的配置中，如下：
+ExecStartPost=/usr/sbin/iptables -t mangle -A FORWARD -o tailscale0 -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
+ExecStopPost=/usr/sbin/iptables -t mangle -D FORWARD -o tailscale0 -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
+
+systemctl daemon-reload
+
 宣告网段：
 sudo tailscale up --login-server=https://my-headscale-domain.com --accept-routes=true --accept-dns=true --advertise-routes=192.168.10.0/24
 
