@@ -59,7 +59,7 @@ Plug 'majutsushi/tagbar'
 
 " 编程语言相关
 "" golang
-Plug 'fatih/vim-go', { 'tag': '*' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'stamblerre/gocode', { 'rtp': 'vim', 'do': '/opt/vim/plugged/gocode/vim/symlink.sh' }
 
 " template
