@@ -6,12 +6,13 @@ ibus默认的pinyin输入法一言难尽，某日和IDE一起工作一直出问�
 ## fedora 39 + gnome
 ```
 1. install
-    sudo dnf -y install fcitx fcitx-configtool fcitx-data fcitx-libpinyin fcitx-table-chinese
+    # 安装fcitx5
+    $ sudo dnf install fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool fcitx5-lua fcitx5-chinese-addons fcitx5-table-extra fcitx5-rime
+    # 安装gnome插件https://extensions.gnome.org/extension/261/kimpanel/
 
 2. set env(此处我设置在profile中的)
     export LC_CTYPE=zh_CN.UTF-8
     export XMODIFIERS="@im=fcitx"
-    export GTK_IM_MODULE=fcitx
     export QT_IM_MODULE=fcitx
 
 3. 恩，不是很懂得，反正设置了
@@ -22,7 +23,7 @@ ibus默认的pinyin输入法一言难尽，某日和IDE一起工作一直出问�
     Name=Fcitx
     GenericName=Input Method
     Comment=Start Input Method
-    Exec=fcitx -d -r
+    Exec=fcitx5 -d -r
     Icon=fcitx
     Terminal=false
     Type=Application
@@ -33,12 +34,11 @@ ibus默认的pinyin输入法一言难尽，某日和IDE一起工作一直出问�
 4. reboot
 
 5. 可以简单诊断下看缺啥
-    fcitx-diagnose
+    fcitx5-diagnose
 
 6. 配置输入法(libpinyin)
-    fcitx-config-gtk3
+    $ fcitx5-configtool
     把 trigger input method 改为 Lctrl Lshift
-    extra key for trigger 改为 disable
     Prev Page 改为 pgup
     Next Page 改为 pgdn
 
@@ -50,6 +50,5 @@ ibus默认的pinyin输入法一言难尽，某日和IDE一起工作一直出问�
 ```
 
 ## ref
-* [Inputting Japanese text in Linux and some BSDs](https://srobb.net/jpninpt.html#Fedora)
-* [fcitx](https://wiki.archlinux.org/title/fcitx)
-* 
+* [fcitx5 install](https://fcitx-im.org/wiki/Install_Fcitx_5)
+* [fcitx5 config](https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland)
